@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Regelwerk — Malora City</title>
+  <link rel="icon" type="image/gif" href="img/logo.gif">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="css/css2.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .rw-wrap{position:relative;z-index:1;padding:calc(var(--nav-h) + 6vh) 6% 10vh;}
+    .rw-hero{text-align:center;padding-bottom:6vh;border-bottom:1px solid var(--border);margin-bottom:36px;}
+    .rw-hero h1{font-family:"Bebas Neue",sans-serif;font-size:clamp(52px,8vw,110px);letter-spacing:4px;line-height:.9;color:#fff;margin-bottom:14px;}
+    .rw-hero h1 span{background:linear-gradient(135deg,var(--blue-bright),var(--blue));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+    .rw-hero p{color:var(--muted2);font-size:16px;line-height:1.7;max-width:560px;margin:0 auto 28px;}
+    .rw-meta{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border-blue);background:rgba(10,132,255,.07);padding:5px 16px;border-radius:999px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--blue-bright);}
+    .rw-quicknav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:24px 0 36px;border-bottom:1px solid var(--border);margin-bottom:40px;}
+    .rw-quicknav a{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted2);text-decoration:none;padding:6px 14px;border:1px solid var(--border);border-radius:6px;transition:color .2s,border-color .2s,background .2s;}
+    .rw-quicknav a:hover{color:var(--blue-bright);border-color:var(--border-blue);background:rgba(10,132,255,.07);}
+    .rw-sec{margin-bottom:10px;}
+    .rw-det{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:border-color .25s,box-shadow .25s;}
+    .rw-det[open]{border-color:var(--border-blue);box-shadow:0 8px 40px rgba(10,132,255,.08);}
+    .rw-sum{list-style:none;cursor:pointer;padding:20px 26px;display:flex;align-items:center;justify-content:space-between;gap:16px;-webkit-user-select:none;user-select:none;transition:background .2s;}
+    .rw-sum:hover{background:rgba(255,255,255,.025);}
+    .rw-sum::marker,.rw-sum::-webkit-details-marker{display:none;}
+    .rw-sum-l{display:flex;align-items:center;gap:14px;}
+    .rw-badge{min-width:48px;height:28px;display:flex;align-items:center;justify-content:center;font-family:"Bebas Neue",sans-serif;font-size:13px;letter-spacing:1.5px;color:var(--blue-bright);background:rgba(10,132,255,.1);border:1px solid var(--border-blue);border-radius:6px;padding:0 10px;white-space:nowrap;}
+    .rw-stitle{font-family:"Bebas Neue",sans-serif;font-size:20px;letter-spacing:2px;color:#fff;}
+    .rw-arr{width:9px;height:9px;border-right:2px solid rgba(255,255,255,.2);border-bottom:2px solid rgba(255,255,255,.2);transform:rotate(45deg);flex-shrink:0;transition:transform .22s,border-color .22s;}
+    .rw-det[open] .rw-arr{transform:rotate(-135deg);border-color:var(--blue);}
+    .rw-panel{padding:4px 26px 26px;}
+    .rw-rule{padding:13px 0;border-bottom:1px solid rgba(255,255,255,.042);display:flex;gap:14px;align-items:flex-start;}
+    .rw-rule:last-child{border-bottom:none;}
+    .rw-num{font-family:"Bebas Neue",sans-serif;font-size:12px;letter-spacing:1px;color:var(--blue);min-width:54px;padding-top:2px;flex-shrink:0;}
+    .rw-text{color:var(--muted2);font-size:14px;line-height:1.7;}
+    .rw-text strong{color:var(--text);}
+    .tag-no{display:inline-flex;align-items:center;background:rgba(255,60,60,.1);border:1px solid rgba(255,60,60,.2);color:#ff6b6b;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:2px 7px;border-radius:4px;margin-left:5px;vertical-align:middle;}
+    .tag-ok{display:inline-flex;align-items:center;background:rgba(10,210,100,.08);border:1px solid rgba(10,210,100,.2);color:#4cde8a;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:2px 7px;border-radius:4px;margin-left:5px;vertical-align:middle;}
+    .gambo-box{margin:18px 0 6px;padding:20px 22px;background:rgba(255,60,60,.05);border:1px solid rgba(255,60,60,.18);border-radius:12px;}
+    .gambo-box h4{font-family:"Bebas Neue",sans-serif;font-size:18px;letter-spacing:2px;color:#ff6b6b;margin-bottom:12px;}
+    .gambo-box p{color:var(--muted2);font-size:14px;line-height:1.7;margin-bottom:12px;}
+    .gambo-box ul{color:var(--muted2);font-size:14px;line-height:1.7;padding-left:18px;}
+    .gambo-box ul li{margin-bottom:7px;}
+    .info-box{margin:14px 0;padding:14px 18px;background:rgba(10,132,255,.05);border:1px solid var(--border-blue);border-radius:10px;}
+    .warn-box{margin:14px 0;padding:14px 18px;background:rgba(255,200,0,.04);border:1px solid rgba(255,200,0,.14);border-radius:10px;}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:4px 20px;}
+    .grid2 .rw-rule{border:none;padding:7px 0;}
+    .rw-footer{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding:28px 0 0;border-top:1px solid var(--border);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue);margin-top:48px;}
+    .rw-footer a{color:var(--blue-bright);text-decoration:none;}
+    @media(max-width:700px){.rw-sum{padding:14px 16px;}.rw-panel{padding:4px 16px 20px;}.grid2{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body class="rules-page">
+  <div class="grid-overlay"></div>
+  <div class="c-dot" id="cDot"></div>
+  <div class="c-ring" id="cRing"></div>
+  <div class="scroll-bar" id="sBar"></div>
+  <canvas id="particles"></canvas>
+
+  <header class="nav" id="mainNav">
+    <div class="nav-bg"></div>
+    <a class="brand" href="index.html">
+      <img class="brand-logo" src="img/logo.gif" alt="Malora City">
+      <span class="brand-text">Malora City</span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Startseite</a>
+      <a href="features.html">Team</a>
+      <a href="regelwerk.html" aria-current="page">Regelwerk</a>
+      <a href="fraktionsregelwerk.html">Fraktionsregelwerk</a>
+      <a href="streamer-regelwerk.html">Streamer</a>
+      <a href="shop.html">Shop</a>
+      <a href="agb.html">AGB</a>
+      <a href="impressum.html">Impressum</a>
+    </nav>
+    <a class="btn btn-outline" href="https://discord.gg/maloracity" target="_blank" rel="noopener">Discord</a>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Menü"><span></span><span></span><span></span></button>
+  </header>
+  <div class="nav-drawer" id="navDrawer">
+    <a href="index.html">Startseite</a><a href="features.html">Team</a><a href="regelwerk.html">Regelwerk</a>
+    <a href="fraktionsregelwerk.html">Fraktionsregelwerk</a><a href="streamer-regelwerk.html">Streamer Regelwerk</a>
+    <a href="shop.html">🛒 Shop</a><a href="agb.html">AGB</a><a href="impressum.html">Impressum</a>
+    <a href="https://discord.gg/maloracity" target="_blank" rel="noopener">Discord →</a>
+  </div>
+
+  <main class="rw-wrap">
+    <div class="rw-hero">
+      <h1>Malora City<br><span>Regelwerk</span></h1>
+      <p>Vollständiges Spieler-Regelwerk für unseren FiveM Roleplay-Server. Lesen, verstehen, befolgen — Unwissenheit schützt nicht vor Strafe.</p>
+      <span class="rw-meta">Stand: 2026 · Malora City · Roleplay</span>
+    </div>
+
+    <nav class="rw-quicknav">
+      <a href="#s1">§1 Grauzonen</a><a href="#s2">§2 Support</a><a href="#s3">§3 Allgemein</a>
+      <a href="#s4">§4 Rückerstattung</a><a href="#s5">§5 Aufnahmen</a><a href="#s6">§6 Bugs</a>
+      <a href="#s7">§7 One-Life</a><a href="#s8">§8 New-Life</a><a href="#s9">§9 RP-Regeln</a>
+      <a href="#gambo">⚠️ Gambo</a><a href="#s10">§10 Charakter</a><a href="#s11">§11 Gewalt</a>
+      <a href="#s12">§12 Geiselnahmen</a><a href="#s13">§13 Baiting</a>
+      <a href="#s14">§14 Safezonen</a><a href="#s15">§15 Todeszonen</a>
+    </nav>
+
+    <div class="rw-sec" id="s1">
+      <details class="rw-det" open>
+        <summary class="rw-sum"><div class="rw-sum-l"><span class="rw-badge">§ 1</span><span class="rw-stitle">Grauzonen & Grundsätze</span></div><span class="rw-arr"></span></summary>
+        <div class="rw-panel">
+          <div class="rw-rule"><span class="rw-num">§ 1.1</span><span class="rw-text">Das Suchen sowie das Ausnutzen von Grauzonen des Regelwerks ist nicht gestattet! <span class="tag-no">Verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 1.2</span><span class="rw-text"><strong>Unwissenheit schützt nicht vor der Strafe!</strong> Jeder Spieler ist selbst dafür verantwortlich, auf dem neuesten Stand zu sein.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 1.3</span><span class="rw-text">Das Team behält sich das Recht vor, dieses Regelwerk jederzeit anzupassen — Änderungen müssen nicht angekündigt werden. Jedes Teammitglied kann nach eigenem Ermessen die Strafhöhe bestimmen.</span></div>
+        </div>
+      </details>
+    </div>
+
+    <div class="rw-sec" id="s2">
+      <details class="rw-det">
+        <summary class="rw-sum"><div class="rw-sum-l"><span class="rw-badge">§ 2</span><span class="rw-stitle">Allgemeine Support-Regeln</span></div><span class="rw-arr"></span></summary>
+        <div class="rw-panel">
+          <div class="rw-rule"><span class="rw-num">§ 2.1</span><span class="rw-text">Supportfälle müssen im Discord Support-Channel beantragt und gemeldet werden.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 2.2</span><span class="rw-text">Beleidigungen im Supportfall sind zu rechtfertigen.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 2.3</span><span class="rw-text">Ein Supporter muss sich nicht für seine Entscheidung rechtfertigen.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 2.4</span><span class="rw-text">Der Supporter, der den Supportfall beginnt, hat immer das letzte Wort.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 2.5</span><span class="rw-text">Während des Supportfalls lässt man die Gegenseite stets ausreden und fällt ihr nicht ins Wort.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 2.6</span><span class="rw-text">Bitte nicht privat per DM wegen eines Supportfalls kontaktieren. Auch wir führen ein Privatleben.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 2.7</span><span class="rw-text">Das Spammen von Support-Tickets ist strengstens untersagt. <span class="tag-no">Verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 2.8</span><span class="rw-text">Das Anlegen von Admin-Kleidung in einem Kleidungsladen ist ausdrücklich verboten.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 2.9</span><span class="rw-text">Spieler dürfen Teammitglieder im A-Duty nicht im Roleplay ansprechen — das Teammitglied gilt als unsichtbar, solange es nicht selbst Kontakt aufnimmt.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 2.10</span><span class="rw-text">Während einer Support-Sitzung zu lügen oder Details zu verschweigen ist verboten. Nachgewiesene Lügen werden streng sanktioniert — unabhängig vom Ziel.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 2.11</span><span class="rw-text">Kein Spieler hat einen festen Anspruch auf eine Support-Sitzung. Support wird ausschließlich von Teamlern begonnen, geleitet und beendet.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 2.12</span><span class="rw-text">Eine RP-Situation darf nicht durch Support unterbrochen werden — die Situation muss erst ausgespielt werden. Ausnahme: größere Regelverstöße.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 2.13</span><span class="rw-text">Support-Gespräche dürfen nicht aufgenommen werden. <span class="tag-no">Verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 2.14</span><span class="rw-text">Ein Regelbruch kann nur innerhalb von <strong>24 Stunden</strong> nach dem Vorfall gemeldet werden — danach verfällt die Meldung. Videobeweis ist zwingend erforderlich.</span></div>
+        </div>
+      </details>
+    </div>
+
+    <div class="rw-sec" id="s3">
+      <details class="rw-det">
+        <summary class="rw-sum"><div class="rw-sum-l"><span class="rw-badge">§ 3</span><span class="rw-stitle">Allgemeine Regeln</span></div><span class="rw-arr"></span></summary>
+        <div class="rw-panel">
+          <div class="rw-rule"><span class="rw-num">§ 3.1</span><span class="rw-text">Das Betreten der Community ist nur ausgewählten Personen gestattet. Das Team behält das Recht, über die Aufnahme zu entscheiden.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 3.2</span><span class="rw-text">Bei Verstößen gegen Regeln behält sich das Team vor, diese gerecht zu bestrafen.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 3.3</span><span class="rw-text">Stets sachlich und freundlich in allen Kanälen verhalten. Amtssprache ist <strong>Deutsch</strong> — außer im Rahmen einer RP-Figur.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 3.4</span><span class="rw-text">Handel mit Accounts oder Ingame-Gütern gegen Echtgeld ist strengstens verboten → sofortiger permanenter Ausschluss. <span class="tag-no">Perm-Bann</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 3.5</span><span class="rw-text">Jeder Spieler ist für seinen Account selbst verantwortlich — auch bei Beeinflussung durch Dritte.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 3.6</span><span class="rw-text">Multiaccounting (mehrere Accounts) sowie das Weitergeben von Accounts sind verboten. <span class="tag-no">Verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 3.7</span><span class="rw-text">Vernünftiges Headset bzw. Kopfhörer + Mikrofon ist Pflicht. Auf dem Server muss man jederzeit ansprechbar sein. Den Lautsprecher auszuschalten ist untersagt.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 3.8</span><span class="rw-text">Fremdwerbung ist strengstens untersagt. <span class="tag-no">Verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 3.9</span><span class="rw-text">Extremistische, rassistische und sexistische Inhalte sind verboten und führen zum Ausschluss.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 3.10</span><span class="rw-text">Bei Unstimmigkeiten kann ein anderer unabhängiger Supporter verlangt werden — dieser kann ggf. strengere Maßnahmen verhängen.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 3.11</span><span class="rw-text">Support-Anliegen ohne klare Zuweisung, Vortäuschen falscher Tatsachen oder Einreichen von manipuliertem Beweismaterial werden sanktioniert.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 3.12</span><span class="rw-text">Frauenfeindliches, sexistisches oder diskriminierendes Verhalten außerhalb des IC-Rahmens kann bis zum permanenten Bann geahndet werden.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 3.13</span><span class="rw-text">Verkauf von RP-Gütern gegen Echtgeld ist verboten — beim Käufer werden die Güter entfernt.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 3.14</span><span class="rw-text">Events dürfen in keiner Weise gestört werden. Jede Störung wird administrativ geahndet. <span class="tag-no">Verboten</span></span></div>
+        </div>
+      </details>
+    </div>
+
+    <div class="rw-sec" id="s4">
+      <details class="rw-det">
+        <summary class="rw-sum"><div class="rw-sum-l"><span class="rw-badge">§ 4</span><span class="rw-stitle">Rückerstattungen</span></div><span class="rw-arr"></span></summary>
+        <div class="rw-panel">
+          <div class="rw-rule"><span class="rw-num">§ 4.1</span><span class="rw-text">Erstattungen von Items, Geld oder Ingame-Gütern erfolgen nur über das Discord Support-System — immer mit Video- oder Bildnachweis.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 4.2</span><span class="rw-text">Für Verluste durch einen Server-Crash sind Erstattungen pauschal ausgeschlossen.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 4.3</span><span class="rw-text">Erstattungen müssen innerhalb von <strong>48 Stunden</strong> nach dem Verlust beantragt werden — immer mit Video- oder Fotobeweis.</span></div>
+        </div>
+      </details>
+    </div>
+
+    <div class="rw-sec" id="s5">
+      <details class="rw-det">
+        <summary class="rw-sum"><div class="rw-sum-l"><span class="rw-badge">§ 5</span><span class="rw-stitle">Aufnahmen & Streams</span></div><span class="rw-arr"></span></summary>
+        <div class="rw-panel">
+          <div class="rw-rule"><span class="rw-num">§ 5.1</span><span class="rw-text">Wer auf Malora City spielt, erklärt sich bereit, dass Aufnahmen von ihm getätigt und veröffentlicht werden dürfen.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 5.2</span><span class="rw-text">Aufnahmen oder Streams von Support-Gesprächen sind nicht gestattet. <span class="tag-no">Verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 5.3–5.4</span><span class="rw-text">Regelbruch muss innerhalb von <strong>24 Stunden</strong> gemeldet werden — danach verfällt die Meldung. Videobeweis ist Pflicht.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 5.5</span><span class="rw-text">Wird ein Regelbruch gegen dich gemeldet (mit Aufnahme), solltest du eine Gegenaufnahme vorweisen können.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 5.6</span><span class="rw-text">Stream-Sniping — gezieltes Aufsuchen oder Beeinflussen von Streamern — ist strengstens untersagt. <span class="tag-no">Verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 5.7</span><span class="rw-text">Bild-/Tonaufnahmen von Support-Gesprächen dürfen nicht veröffentlicht werden (z. B. YouTube). Bei Verstoß drohen Verwarnungen oder Sperrungen.</span></div>
+        </div>
+      </details>
+    </div>
+
+    <div class="rw-sec" id="s6">
+      <details class="rw-det">
+        <summary class="rw-sum"><div class="rw-sum-l"><span class="rw-badge">§ 6</span><span class="rw-stitle">Bugs & Exploits</span></div><span class="rw-arr"></span></summary>
+        <div class="rw-panel">
+          <div class="rw-rule"><span class="rw-num">§ 6.1</span><span class="rw-text">Das Ausnutzen unbeabsichtigter Mechaniken ist verboten — sofortige Meldung an den Support ist Pflicht.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 6.2</span><span class="rw-text">Dupen (Vervielfachen von Gegenständen) ist strengstens untersagt. <span class="tag-no">Verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 6.3</span><span class="rw-text">Alle Cheats & Exploits (Aimbot, ESP, No Water, No Bush, No Props) sind strengstens untersagt. <span class="tag-no">Verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 6.4</span><span class="rw-text">Der Carry-Command darf nicht zum eigenen Vorteil genutzt werden — nur mit triftigem RP-Hintergrund. Auf zwei Rädern kein Carry.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 6.5</span><span class="rw-text">Maximal 4 Personen dürfen in einem 4-Sitzer mitfahren (Kofferraum ausgeschlossen).</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 6.6</span><span class="rw-text">Gefesselte Personen dürfen grundsätzlich nicht gecarryt werden. Ausnahme: Verstoß gegen §9.7.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 6.7</span><span class="rw-text">Emotes dürfen nicht zum eigenen Vorteil genutzt werden.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 6.8</span><span class="rw-text">Bug-Abusing wird mit einem <strong>permanenten Bann</strong> bestraft. <span class="tag-no">Perm-Bann</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 6.9</span><span class="rw-text">Funkschüsse sowie deren Versuch sind strengstens verboten. <span class="tag-no">Verboten</span></span></div>
+        </div>
+      </details>
+    </div>
+
+    <div class="rw-sec" id="s7">
+      <details class="rw-det">
+        <summary class="rw-sum"><div class="rw-sum-l"><span class="rw-badge">§ 7</span><span class="rw-stitle">One-Life Regel</span></div><span class="rw-arr"></span></summary>
+        <div class="rw-panel">
+          <div class="rw-rule"><span class="rw-num">§ 7.1</span><span class="rw-text">Du bist verpflichtet, dein Leben zu schützen. Es ist dein höchstes Gut — deine größte Angst ist der Tod.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 7.2</span><span class="rw-text">Spiele Situationen dementsprechend realistisch aus.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 7.3</span><span class="rw-text">Es ist untersagt, eine andere Partei aufzufordern, dich umzubringen (z. B. „Stech mich doch ab"). Du musst dein Leben bis zum Ende verteidigen.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 7.4</span><span class="rw-text">Die Behandlung durch einen Notfall-Mediziner ist mit einer regulären Behandlung gleichzusetzen (Respawn am Krankenhaus).</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 7.5</span><span class="rw-text">Ab dem Tod bzw. der Bewusstlosigkeit sind alle Erinnerungen der letzten <strong>20 Minuten vergessen</strong>.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 7.6</span><span class="rw-text">Hinrichtungen sind nur mit gültigem Ticket und ausdrücklicher High-Team-Genehmigung erlaubt.</span></div>
+        </div>
+      </details>
+    </div>
+
+    <div class="rw-sec" id="s8">
+      <details class="rw-det">
+        <summary class="rw-sum"><div class="rw-sum-l"><span class="rw-badge">§ 8</span><span class="rw-stitle">New-Life Regel</span></div><span class="rw-arr"></span></summary>
+        <div class="rw-panel">
+          <div class="rw-rule"><span class="rw-num">§ 8.1</span><span class="rw-text">Nach einer Wiederbelebung im Medical Department ist es verboten, sich an die letzte RP-Situation zu erinnern oder aktiv daran teilzunehmen.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 8.2</span><span class="rw-text">Für die nächsten <strong>15 Minuten</strong> ist kein Schussgefecht erlaubt.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 8.3</span><span class="rw-text">Wird man über die vorherige Situation informiert, dürfen nur teilweise Erinnerungen bestehen bleiben.</span></div>
+        </div>
+      </details>
+    </div>
+
+    <div class="rw-sec" id="s9">
+      <details class="rw-det">
+        <summary class="rw-sum"><div class="rw-sum-l"><span class="rw-badge">§ 9</span><span class="rw-stitle">Allgemeine Roleplay-Regeln</span></div><span class="rw-arr"></span></summary>
+        <div class="rw-panel">
+          <div class="rw-rule"><span class="rw-num">§ 9.1</span><span class="rw-text"><strong>VDM</strong> — An-/Überfahren von Personen mit Fahrzeugen. <span class="tag-no">Streng verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.2</span><span class="rw-text"><strong>RDM</strong> — Schaden ohne RP-Hintergrund zufügen. <span class="tag-no">Streng verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.3</span><span class="rw-text"><strong>Meta-Gaming</strong> — Informationen aus externen Quellen (Discord, Twitch, YouTube etc.) im RP nutzen. <span class="tag-no">Streng verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.4</span><span class="rw-text"><strong>Power-RP</strong> — Gegenstände erfinden, dem Gegenüber keinen Ausweg lassen (z. B. „Springe oder ich schieße"). <span class="tag-no">Verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.5</span><span class="rw-text">Das Einmischen als Drittpartei in eine aktive RP-Situation ist strengst untersagt.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.6</span><span class="rw-text"><strong>Combat-Logging</strong> — absichtliches Verlassen des Servers in/nach einer RP-Situation. <span class="tag-no">Streng verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.7</span><span class="rw-text"><strong>Fear-RP</strong> — Bei Bedrohung mit einer oder mehreren Waffen muss Angst ausgespielt werden. Respektloses Verhalten unter Bedrohung ist verboten.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.8</span><span class="rw-text"><strong>Fail-RP</strong> — Aktionen, die im realen Leben unmöglich/unrealistisch wären (z. B. „Tod auf dem Boden reden"). <span class="tag-no">Verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.9</span><span class="rw-text">Betreten eines Interieurs während aktiver Kampfhandlung oder Verfolgung ist verboten. Ausloggen im Gefängnis = RP-Flucht.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.10</span><span class="rw-text">Gebrauch von Schusswaffen muss realistisch und nachvollziehbar sein.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.11</span><span class="rw-text"><strong>Schuss-Call</strong> ist Pflicht — mit triftigem RP-Hintergrund. Zielen allein ist kein Schuss-Call, sondern eine Androhung. Erst ein tatsächlicher Schuss gilt als Gewalt-Call.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.12</span><span class="rw-text">Nach einer Ankündigung muss dem Opfer mindestens <strong>3 Sekunden</strong> Reaktionszeit gelassen werden.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.13</span><span class="rw-text">Beleidigung oder Anfahren ist kein triftiger RP-Hintergrund! Der RP-Hintergrund darf maximal <strong>15 Minuten</strong> zurückliegen.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.14</span><span class="rw-text">Bei Unterbrechung durch Time-Out sofort wieder einloggen — Situation geht dort weiter, wo man aufgewacht ist. Vor Server-Restart keine großen RP-Situationen (Bankraub, Geiselnahme) beginnen.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.15</span><span class="rw-text"><strong>„Sei kein Arsch"</strong> — Aktionen, die anderen absichtlich das RP verderben, sind verboten. RP soll allen Spaß machen.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.16</span><span class="rw-text">Server-Restart darf nicht weniger als 30 Minuten vor einer laufenden RP-Situation erfolgen. Polizei-RP wird nach Restart fortgeführt.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.17</span><span class="rw-text">Das RP von Staatsfraktionen (Verkehrskontrollen, medizinische Behandlung, Hausverbote) muss befolgt werden. Ausnahme: Beschuldigte einer Straftat. Gilt nicht bei Verkehrsdelikten.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.18</span><span class="rw-text">Ist kein Mediziner im Dienst, muss man selbst darauf achten, nicht bewusstlos zu werden. Kein Grund für den Support.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.19</span><span class="rw-text">Kein AFK-Schutz. AFK-Farming ist verboten. Man muss jederzeit ansprechbar und reaktionsfähig sein.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.20</span><span class="rw-text">Sexuelle Belästigung oder Nötigung führt zum sofortigen Ausschluss. <span class="tag-no">Perm-Bann</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.21</span><span class="rw-text">Soundboards & Stimmenverzerrer erlaubt, solange sie das RP sinnvoll unterstützen. Auf Beschwerde: sofort ausschalten oder den Ort verlassen.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.22</span><span class="rw-text">Lifeinvader darf ausschließlich für Werbezwecke genutzt werden — keine Drohungen oder Beleidigungen. <span class="tag-no">Verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.23</span><span class="rw-text"><strong>Scamming</strong> bei Echtgeld-Gütern ist streng verboten und kann zum Perm-Bann führen. Ingame-Items ohne Echtgeld-Bezug: jeder ist selbst verantwortlich. Auch Betrugsversuche werden geahndet.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.24</span><span class="rw-text"><strong>Power-RP</strong>: Zu wenig RP spielen und der Gegenseite keine Handlungsfreiheit lassen. <span class="tag-no">Verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.25</span><span class="rw-text"><strong>Combat-Logging</strong>: Ausloggen aus laufender RP-Situation. Ausnahme: Spiel-Crash.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.26</span><span class="rw-text">Vollmaskierte Personen dürfen nicht wiedererkannt werden — außer wenn sie sich selbst nennen. Vollmaskierung = nur Augen erkennbar oder ganzes Gesicht verdeckt.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.27</span><span class="rw-text">Sportwagen & nicht geländetaugliche Fahrzeuge dürfen nicht abseits befestigter Straßen (Offroad) gefahren werden. <span class="tag-no">Verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.28</span><span class="rw-text">Taser-Einsatz während eines Schussgefechts oder einer Geiselnahme ist verboten. Ein Taser-Schuss gilt nicht als Schuss-Call.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.29</span><span class="rw-text">Während einer RP-Situation darf keine Safezone betreten werden.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.30</span><span class="rw-text">Gegenstände dürfen nur bei Überfall oder Durchsuchung abgenommen werden.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.31</span><span class="rw-text">Durchsuchungen nur mit nachvollziehbarem RP-Hintergrund — müssen vorab angekündigt werden (z. B. „Ich werde Sie nun abtasten.").</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.32</span><span class="rw-text">Während Bewusstlosigkeit dürfen keine Infos aufgenommen werden. Nach Behandlung darf nicht mehr an Kampfhandlungen teilgenommen werden — RP ist weiterhin erlaubt.</span></div>
+
+          <!-- GAMBO BOX -->
+          <div class="gambo-box" id="gambo">
+            <h4>⚠️ Gambo-Verhalten — Strikt Verboten</h4>
+            <p>Als <strong style="color:#ff6b6b;">„Gambo-Verhalten"</strong> bezeichnet man unrealistisches, übertrieben heroisches oder regelwidriges Verhalten, das das Roleplay bewusst untergräbt, Regelstrukturen umgeht oder die Atmosphäre des Servers zerstört. Alles, was im realen Leben unmöglich oder absurd wäre, fällt darunter — und ist auf Malora City in allen Formen strikt verboten.</p>
+            <ul>
+              <li>Sich wie ein unverwundbarer Actionheld verhalten, obwohl man bedroht oder überwältigt wird</li>
+              <li>Fear-RP ignorieren — trotz Bewaffnung respektlos, mutig oder aggressiv agieren</li>
+              <li>Angeschossen oder schwer verletzt weiterkämpfen, als wäre nichts geschehen</li>
+              <li>Bewusste Provokation in aussichtslosen Situationen ohne Rücksicht auf das eigene Leben</li>
+              <li>Einen Bloodout mithilfe eines Sicarios oder Dritter aktiv umgehen</li>
+              <li>Gambo-Verhalten auf illegalen Farming-Routen (§2.6 Fraktionsregelwerk)</li>
+              <li>Emotes, Animationen oder Bugs zur Vorteilsverschaffung ausnutzen</li>
+              <li>Unrealistische Fluchtmanöver (z. B. aus großer Höhe springen und weiterlaufen)</li>
+              <li>Sich absichtlich töten lassen, um einer Situation zu entfliehen (Suizid-Baiting)</li>
+              <li>Regelwidrig handeln, um Fraktionsstrukturen oder Konzepte zu umgehen</li>
+            </ul>
+            <p style="color:var(--muted2);font-size:13px;margin-top:12px;font-style:italic;">Konsequenzen: Verwarnungen bis hin zu temporären oder permanenten Serverbanns, abhängig von der Schwere des Verstoßes.</p>
+          </div>
+
+          <div class="rw-rule" style="margin-top:16px;"><span class="rw-num">§ 9.4 Med</span><span class="rw-text">Nach einer Reanimation ist der Mediziner verpflichtet, sich um den Patienten zu kümmern — außer bei Angriff oder Provokation. Bei einem Überfall muss der Mediziner den Beteiligten ausreichend Zeit lassen, die Situation zu beenden.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.5</span><span class="rw-text">Leichenschändung — jegliches Interagieren mit Leichen (Spucken, Beleidigungen, Musik, Provokation) — ist strengstens verboten. <span class="tag-no">Verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.6 Fzg</span><span class="rw-text">Fahrzeuge stehlen ist erlaubt, aber nicht beim Mechaniker tunen. Staatsfahrzeuge nur mit RP-Hintergrund. LSMD-Fahrzeuge dürfen niemals gestohlen oder gefahren werden.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.7 Flucht</span><span class="rw-text">Flüchten in Apartments oder Safezones gilt als RP-Flucht.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.8 OOC</span><span class="rw-text">Hinweise auf das Regelwerk oder den Support im RP (z. B. „du darfst das nicht, sonst gehe ich nach oben") gelten als OOC-Talk — kann mit Perm-Bann bestraft werden.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.9 Fzg</span><span class="rw-text">Aus gepanzerten Fahrzeugen ist das Schießen strengstens verboten — auch der Versuch. <span class="tag-no">Verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.10 Fzg</span><span class="rw-text">Schießen bei geöffnetem Kofferraum oder aus dem hinteren Fahrzeugbereich ist verboten.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.11 Med</span><span class="rw-text">Den Medic-Konvoi angreifen, ausrauben, blockieren oder stören ist strengstens verboten. <span class="tag-no">Verboten</span></span></div>
+
+          <div class="info-box">
+            <p style="color:var(--blue-bright);font-size:12px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;margin-bottom:8px;">⚠️ Verbotene Begriffe im RP</p>
+            <p style="color:var(--muted2);font-size:14px;line-height:1.7;">Folgende Begriffe/Verhaltensweisen sind im RP untersagt:<br>
+            Beleidigende Ausdrücke gegenüber Frauen · N-Wort & rassistische Aussagen · <em>Headshot, Movement, GG, Taste, Muskel, Europa</em> im RP-Kontext · Support/Team-Anspielungen: <em>Engel, Gott, Oben, Bibel, Hexe, Power Ranger, Suppe, Suppenküche</em> · <em>Modder, Zauberer</em> zur Beschreibung von Spielern · Fraktionsstatus-Hinweise: <em>offiziell/inoffiziell, Stempel</em> · <em>Hurensohn</em> und ähnliche Beleidigungen</p>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <div class="rw-sec" id="s10">
+      <details class="rw-det">
+        <summary class="rw-sum"><div class="rw-sum-l"><span class="rw-badge">§ 10</span><span class="rw-stitle">RP-Regeln — Charakter</span></div><span class="rw-arr"></span></summary>
+        <div class="rw-panel">
+          <div class="rw-rule"><span class="rw-num">§ 10.1</span><span class="rw-text">Das Leben deines Ingame-Charakters ist das höchste Gut.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 10.2</span><span class="rw-text">Realistischer Vor- und Nachname Pflicht — passend zum Charakter. Keine Personen des öffentlichen Lebens.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 10.3</span><span class="rw-text">Das Ausspielen bestimmter Herkünfte (Mexikaner, Russe, Italiener etc.) ist gestattet. <span class="tag-ok">Erlaubt</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 10.4</span><span class="rw-text">Gegengeschlechtliches Spielen nur erlaubt, wenn die Stimme zum Charakter passt.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 10.5</span><span class="rw-text">Troll-Charaktere (z. B. Elfen, unnötige Verkleidungen) sind verboten. <span class="tag-no">Verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 10.6</span><span class="rw-text">Tiere dürfen nur so ausgespielt werden, wie sie sich im echten Leben verhalten — kein Sprechen als Tier, kein Carry als Taube etc.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 10.7</span><span class="rw-text">Als Tier gilt §9.11 (Schuss-Call). Kein Angriff ohne triftigen RP-Hintergrund.</span></div>
+        </div>
+      </details>
+    </div>
+
+    <div class="rw-sec" id="s11">
+      <details class="rw-det">
+        <summary class="rw-sum"><div class="rw-sum-l"><span class="rw-badge">§ 11</span><span class="rw-stitle">RP-Regeln — Gewalt</span></div><span class="rw-arr"></span></summary>
+        <div class="rw-panel">
+          <div class="rw-rule"><span class="rw-num">§ 11.1</span><span class="rw-text">Hochnehmen einer Person erfordert triftigen RP-Hintergrund. Ununterbrochenes Hochnehmen ist verboten. Nach Wiederbelebung: erneutes Hochnehmen mit RP-Hintergrund erlaubt.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 11.2</span><span class="rw-text">Leichenschändung — Interagieren mit Leichen (Spucken, Beleidigungen, Musik, Provokation) — strengstens verboten. <span class="tag-no">Verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 11.3</span><span class="rw-text">Beim Hochnehmen von Staats-/illegalen Fraktionen dürfen alle Items abgenommen werden — außer Essen, Trinken, Staatswaffen, staatliche Ausrüstung und max. 15.000 $ Bargeld.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 11.4</span><span class="rw-text">Verstecken oder unnötiges Herumtragen von Bewusstlosen ist strengstens verboten. Durchsuchen erlaubt, Items entnehmen verboten — Ausnahme: Tracker.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 11.5</span><span class="rw-text">Gefesselte Personen dürfen nicht getötet werden — außer wenn sie ihr Leben offensichtlich nicht schützen (Flucht, Beleidigung, Missachtung von Forderungen).</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 11.6</span><span class="rw-text"><strong>Drive-By</strong> auf Fußgänger ist strengstens verboten. Ausnahme: Selbstverteidigung wenn Fußgänger zuerst schießt. Fahrzeug zu Fahrzeug: erlaubt. Streetgangs mit realistischen Gang-Fahrzeugen: erlaubt.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 11.7–11.9</span><span class="rw-text">OOC-Hass, Regelwerk-Hinweise im RP, Anstiftung zu Regelbrüchen, Regeldiskussionen im RP sind strengstens verboten.</span></div>
+        </div>
+      </details>
+    </div>
+
+    <div class="rw-sec" id="s12">
+      <details class="rw-det">
+        <summary class="rw-sum"><div class="rw-sum-l"><span class="rw-badge">§ 12</span><span class="rw-stitle">Geiselnahmen / Entführungen / Bankraube / Überfälle</span></div><span class="rw-arr"></span></summary>
+        <div class="rw-panel">
+          <div class="rw-rule"><span class="rw-num">§ 12.1</span><span class="rw-text">Niemand darf gezwungen werden, Sachen abzugeben, die er nicht bei sich hat. Beschlagnahmen von Essen/Trinken: verboten.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 12.2</span><span class="rw-text">Bei Bedrohung mit einer Waffe und Aufforderung etwas herauszugeben: muss getan werden. Lügen (z. B. „Ich habe keinen Taser") sind verboten.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 12.3</span><span class="rw-text">Eine Person kann <strong>nur von hinten oder auf dem Boden</strong> gefesselt werden.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 12.4</span><span class="rw-text"><strong>Lösegeld-Grenzen:</strong> Zivilisten max. 25.000 $ · Polizisten max. 50.000 $ pro Person · Max. 10 Geiseln gesamt. Gegenstände (Essen, Trinken) zählen zum Lösegeldwert. Illegale Güter dürfen nicht als Lösegeld gefordert werden.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 12.4.3</span><span class="rw-text">Jede Geiselnahme erfordert eine Aktion (z. B. Bankraub, Ladenraub, Erpressung).</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 12.4.4</span><span class="rw-text">Jede Person kann als Geisel genommen werden. Mediziner und Mechaniker sind unantastbar.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 12.5</span><span class="rw-text">Fake-Geiseln nehmen ist nicht gestattet.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 12.6</span><span class="rw-text">Max. <strong>60 Minuten</strong> Festhaltung (mit DOJ-Absprache bis 120 min). Bei kriminellen Aktivitäten max. <strong>6 Geiseln</strong>.</span></div>
+        </div>
+      </details>
+    </div>
+
+    <div class="rw-sec" id="s13">
+      <details class="rw-det">
+        <summary class="rw-sum"><div class="rw-sum-l"><span class="rw-badge">§ 13</span><span class="rw-stitle">Baiting</span></div><span class="rw-arr"></span></summary>
+        <div class="rw-panel">
+          <div class="rw-rule"><span class="rw-num">§ 13.1</span><span class="rw-text">Bewusstes Provozieren von Fraktionen/Spielern ohne RP-Hintergrund ist untersagt.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 13.2</span><span class="rw-text">Sich ununterbrochen ohne RP-Hintergrund das Leben zu nehmen ist verboten. Baiting zur eigenen Bewusstlosigkeit strengstens verboten.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 13.3</span><span class="rw-text">Spammen von Dispatches ist verboten.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 13.4</span><span class="rw-text">Musik im Fahrzeug max. auf 5 Meter Sprachreichweite. Auf Beschwerde sofort reduzieren.</span></div>
+        </div>
+      </details>
+    </div>
+
+    <div class="rw-sec" id="s14">
+      <details class="rw-det">
+        <summary class="rw-sum"><div class="rw-sum-l"><span class="rw-badge">§ 14</span><span class="rw-stitle">Safezonen</span></div><span class="rw-arr"></span></summary>
+        <div class="rw-panel">
+          <div class="grid2">
+            <div class="rw-rule"><span style="color:var(--blue);margin-right:8px;">📍</span><span class="rw-text">Los Santos Police Department</span></div>
+            <div class="rw-rule"><span style="color:var(--blue);margin-right:8px;">📍</span><span class="rw-text">Medic Department</span></div>
+            <div class="rw-rule"><span style="color:var(--blue);margin-right:8px;">📍</span><span class="rw-text">Los Santos Flughafen</span></div>
+            <div class="rw-rule"><span style="color:var(--blue);margin-right:8px;">📍</span><span class="rw-text">Mechaniker Platz</span></div>
+            <div class="rw-rule"><span style="color:var(--blue);margin-right:8px;">📍</span><span class="rw-text">Würfel Park</span></div>
+            <div class="rw-rule"><span style="color:var(--blue);margin-right:8px;">📍</span><span class="rw-text">Kleidungsladen / Klamottenladen</span></div>
+            <div class="rw-rule"><span style="color:var(--blue);margin-right:8px;">📍</span><span class="rw-text">Fahrschule</span></div>
+            <div class="rw-rule"><span style="color:var(--blue);margin-right:8px;">📍</span><span class="rw-text">Harmony Tuning / Ride Out Customs</span></div>
+            <div class="rw-rule"><span style="color:var(--blue);margin-right:8px;">📍</span><span class="rw-text">Mechaniker</span></div>
+            <div class="rw-rule"><span style="color:var(--blue);margin-right:8px;">📍</span><span class="rw-text">Casino</span></div>
+            <div class="rw-rule"><span style="color:var(--blue);margin-right:8px;">📍</span><span class="rw-text">Garagen</span></div>
+            <div class="rw-rule"><span style="color:var(--blue);margin-right:8px;">📍</span><span class="rw-text">Paleto Bank &amp; Staatsbank*</span></div>
+            <div class="rw-rule"><span style="color:var(--blue);margin-right:8px;">📍</span><span class="rw-text">Taxi</span></div>
+            <div class="rw-rule"><span style="color:var(--blue);margin-right:8px;">📍</span><span class="rw-text">Alle legalen Jobs &amp; Routen</span></div>
+            <div class="rw-rule"><span style="color:var(--blue);margin-right:8px;">📍</span><span class="rw-text">Restaurants, Clubs, Bars, Fotostudios</span></div>
+            <div class="rw-rule"><span style="color:var(--blue);margin-right:8px;">📍</span><span class="rw-text">Azzlack Cafe · Custom Caffe</span></div>
+            <div class="rw-rule"><span style="color:var(--blue);margin-right:8px;">📍</span><span class="rw-text">Einreise Flughafen · Gym</span></div>
+            <div class="rw-rule"><span style="color:var(--blue);margin-right:8px;">📍</span><span class="rw-text">Lifeinvader (LV)</span></div>
+          </div>
+          <div class="warn-box" style="margin-top:12px;">
+            <p style="color:var(--muted2);font-size:13px;line-height:1.7;">* Die Safezone der Staatsbank verfällt, sobald ein Staatsbankraub gestartet wird.<br><strong style="color:var(--text);">Safezone-Camping</strong> (unmittelbares Warten vor einer Safezone, um jemanden auszurauben/zu töten) ist verboten.</p>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <div class="rw-sec" id="s15">
+      <details class="rw-det">
+        <summary class="rw-sum"><div class="rw-sum-l"><span class="rw-badge">§ 15</span><span class="rw-stitle">Todeszonen</span></div><span class="rw-arr"></span></summary>
+        <div class="rw-panel">
+          <p style="color:var(--muted2);font-size:14px;line-height:1.7;margin-bottom:18px;">In Todeszonen darf ohne vorherige Schuss-Ankündigung das Feuer eröffnet werden.</p>
+          <div class="grid2">
+            <div class="rw-rule"><span style="color:#ff6b6b;margin-right:8px;">☠️</span><span class="rw-text">Staatsgefängnis</span></div>
+            <div class="rw-rule"><span style="color:#ff6b6b;margin-right:8px;">☠️</span><span class="rw-text">Militärgelände (Army Base)</span></div>
+            <div class="rw-rule"><span style="color:#ff6b6b;margin-right:8px;">☠️</span><span class="rw-text">Abgesperrter Bereich des Police Departments</span></div>
+            <div class="rw-rule"><span style="color:#ff6b6b;margin-right:8px;">☠️</span><span class="rw-text">Anwesen von Fraktionen</span></div>
+            <div class="rw-rule"><span style="color:#ff6b6b;margin-right:8px;">☠️</span><span class="rw-text">Von Staatsfraktionen ausgerufene Sperrzonen</span></div>
+            <div class="rw-rule"><span style="color:#ff6b6b;margin-right:8px;">☠️</span><span class="rw-text">Illegale Routen</span></div>
+            <div class="rw-rule"><span style="color:#ff6b6b;margin-right:8px;">☠️</span><span class="rw-text">Gebiet rund um den Lootdrop</span></div>
+            <div class="rw-rule"><span style="color:#ff6b6b;margin-right:8px;">☠️</span><span class="rw-text">Gang War-Zonen (bei aktivem Gangwar)</span></div>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <div class="rw-footer">
+      <span>© 2026 Malora City — Regelwerk</span>
+      <div style="display:flex;gap:20px;">
+        <a href="fraktionsregelwerk.html">Fraktionsregelwerk</a>
+        <a href="agb.html">AGB</a>
+        <a href="impressum.html">Impressum</a>
+      </div>
+    </div>
+  </main>
+  <script src="js/shared.js"></script>
+</body>
+</html>
