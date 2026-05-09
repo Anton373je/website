@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shop — Malora City</title>
+  <link rel="icon" type="image/gif" href="img/logo.gif">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="css/css2.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="rules-page">
+  <div class="grid-overlay"></div>
+  <div class="c-dot" id="cDot"></div>
+  <div class="c-ring" id="cRing"></div>
+  <div class="scroll-bar" id="sBar"></div>
+  <canvas id="particles"></canvas>
+
+  <header class="nav" id="mainNav">
+    <div class="nav-bg"></div>
+    <a class="brand" href="index.html">
+      <img class="brand-logo" src="img/logo.gif" alt="Malora City">
+      <span class="brand-text">Malora City</span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Startseite</a><a href="features.html">Team</a>
+      <a href="regelwerk.html">Regelwerk</a><a href="fraktionsregelwerk.html">Fraktionsregelwerk</a>
+      <a href="streamer-regelwerk.html">Streamer</a><a href="shop.html" aria-current="page">Shop</a>
+      <a href="agb.html">AGB</a><a href="impressum.html">Impressum</a>
+    </nav>
+    <a class="btn btn-outline" href="https://discord.gg/maloracity" target="_blank" rel="noopener">Discord</a>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Menü"><span></span><span></span><span></span></button>
+  </header>
+  <div class="nav-drawer" id="navDrawer">
+    <a href="index.html">Startseite</a><a href="features.html">Team</a><a href="regelwerk.html">Regelwerk</a>
+    <a href="fraktionsregelwerk.html">Fraktionsregelwerk</a><a href="streamer-regelwerk.html">Streamer Regelwerk</a>
+    <a href="shop.html">🛒 Shop</a><a href="agb.html">AGB</a><a href="impressum.html">Impressum</a>
+    <a href="https://discord.gg/maloracity" target="_blank" rel="noopener">Discord →</a>
+  </div>
+
+  <main class="rules-wrap">
+    <h1><span>🛒</span> Shop</h1>
+    <p class="rules-intro">
+      Unterstütze Malora City und erhalte exklusive Vorteile — Ränge, Pakete und besondere In-Game-Inhalte.
+      Alle Käufe werden sicher über <strong>Tebex</strong> abgewickelt.
+    </p>
+    <p class="rules-intro" style="margin-top:-20px;">
+      Bitte lies vor dem Kauf unsere <a href="agb.html" style="color:var(--blue-bright);">AGB</a>.
+      Bei Fragen zum Shop wende dich über unseren <a href="https://discord.gg/maloracity" style="color:var(--blue-bright);" target="_blank" rel="noopener">Discord</a> an den Support.
+    </p>
+
+    <div style="margin-top:8px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a class="btn btn-solid btn-lg" href="https://maloracity.tebex.io" target="_blank" rel="noopener">Zum Tebex-Shop</a>
+      <a class="btn btn-ghost" href="agb.html">AGB lesen</a>
+      <a class="btn btn-ghost" href="https://discord.gg/maloracity" target="_blank" rel="noopener">Discord Support</a>
+    </div>
+
+    <div style="max-width:600px;margin:48px auto 0;display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;text-align:center;">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px 16px;">
+        <div style="font-size:24px;margin-bottom:10px;">🛡️</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:#fff;margin-bottom:6px;">VIP-Ränge</div>
+        <div style="color:var(--muted2);font-size:13px;line-height:1.6;">Exklusive Vorteile & besondere Rechte auf dem Server</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px 16px;">
+        <div style="font-size:24px;margin-bottom:10px;">🎁</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:#fff;margin-bottom:6px;">Pakete</div>
+        <div style="color:var(--muted2);font-size:13px;line-height:1.6;">Starter-Pakete und Sonder-Bundles für deinen Einstieg</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px 16px;">
+        <div style="font-size:24px;margin-bottom:10px;">💙</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:#fff;margin-bottom:6px;">Support</div>
+        <div style="color:var(--muted2);font-size:13px;line-height:1.6;">Jeder Kauf hilft, den Server weiter zu betreiben</div>
+      </div>
+    </div>
+
+    <footer class="page-footer" style="max-width:860px;margin:60px auto 0;">
+      <span>© 2026 Malora City</span>
+      <a href="agb.html" style="color:var(--blue-bright);text-decoration:none;">AGB</a>
+      <a href="impressum.html" style="color:var(--blue-bright);text-decoration:none;">Impressum</a>
+    </footer>
+  </main>
+  <script src="js/shared.js"></script>
+</body>
+</html>

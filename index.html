@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MALORA CITY — FiveM Roleplay Server</title>
+  <link rel="icon" type="image/gif" href="img/logo.gif">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="css/css2.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <div class="grid-overlay"></div>
+  <div class="c-dot" id="cDot"></div>
+  <div class="c-ring" id="cRing"></div>
+  <div class="scroll-bar" id="sBar"></div>
+  <canvas id="particles"></canvas>
+
+  <!-- NAV -->
+  <header class="nav" id="mainNav">
+    <div class="nav-bg"></div>
+    <a class="brand" href="index.html">
+      <img class="brand-logo" src="img/logo.gif" alt="Malora City Logo">
+      <span class="brand-text">Malora City</span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html" aria-current="page">Startseite</a>
+      <a href="features.html">Team</a>
+      <a href="regelwerk.html">Regelwerk</a>
+      <a href="fraktionsregelwerk.html">Fraktionsregelwerk</a>
+      <a href="streamer-regelwerk.html">Streamer</a>
+      <a href="shop.html">Shop</a>
+      <a href="agb.html">AGB</a>
+      <a href="impressum.html">Impressum</a>
+    </nav>
+    <a class="btn btn-outline" href="https://discord.gg/maloracity" target="_blank" rel="noopener">Discord beitreten</a>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Menü öffnen">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- MOBILE NAV DRAWER -->
+  <div class="nav-drawer" id="navDrawer">
+    <a href="index.html">Startseite</a>
+    <a href="features.html">Team</a>
+    <a href="regelwerk.html">Regelwerk</a>
+    <a href="fraktionsregelwerk.html">Fraktionsregelwerk</a>
+    <a href="streamer-regelwerk.html">Streamer Regelwerk</a>
+    <a href="shop.html">🛒 Shop</a>
+    <a href="agb.html">AGB</a>
+    <a href="impressum.html">Impressum</a>
+    <a href="https://discord.gg/maloracity" target="_blank" rel="noopener">Discord beitreten →</a>
+  </div>
+
+  <!-- HERO -->
+  <main class="hero">
+    <div class="hero-orb"></div>
+    <div class="hero-inner">
+      <div class="eyebrow">
+        <span class="eyebrow-dot"></span>
+        FiveM Roleplay Server · Los Santos
+      </div>
+      <h1 class="hero-title">
+        <span class="w1">Malora</span>
+        <span class="w2">City</span>
+      </h1>
+      <p class="hero-desc">
+        Tauche ein in eine lebendige Roleplay-Welt mit tiefen Charaktergeschichten,
+        spannenden Fraktionskämpfen und einer Community, die das Spiel lebt — nicht nur spielt.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-solid btn-lg" href="https://cfx.re/join/vg7mdk" target="_blank" rel="noopener">Server beitreten</a>
+        <a class="btn btn-ghost btn-lg" href="#newplayer">Neu hier? →</a>
+      </div>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-label">Discord Member</span>
+        <span class="stat-value">3.000+</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Serverart</span>
+        <span class="stat-value">Roleplay</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Gebiet</span>
+        <span class="stat-value">Los Santos</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Plattform</span>
+        <span class="stat-value">FiveM</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Shop</span>
+        <span class="stat-value">Tebex</span>
+      </div>
+    </div>
+
+    <div class="scroll-hint">
+      <span>Entdecken</span>
+      <div class="scroll-hint-arrow"></div>
+    </div>
+  </main>
+
+  <!-- DIVIDER -->
+  <div class="section-divider"></div>
+
+  <!-- NEU AUF DEM SERVER -->
+  <section class="newplayer" id="newplayer">
+    <span class="section-label" data-reveal>Erste Schritte</span>
+    <h2 class="section-title" data-reveal>Neu auf <em>Malora City?</em></h2>
+    <p class="section-intro" data-reveal>
+      Wir helfen dir dabei, direkt loszulegen. Hier findest du alles,
+      was du als neuer Spieler wissen musst — Schritt für Schritt.
+    </p>
+
+    <div class="newplayer-grid">
+
+      <div class="np-card" data-reveal data-delay="0">
+        <div class="np-step">1</div>
+        <span class="np-icon">🎮</span>
+        <h3 class="np-title">FiveM installieren</h3>
+        <p class="np-body">
+          Lade FiveM kostenlos herunter und installiere es. Du benötigst eine
+          gültige Kopie von GTA V auf deinem PC.
+        </p>
+        <a class="np-link" href="https://fivem.net" target="_blank" rel="noopener">FiveM herunterladen</a>
+      </div>
+
+      <div class="np-card" data-reveal data-delay="100">
+        <div class="np-step">2</div>
+        <span class="np-icon">📖</span>
+        <h3 class="np-title">Regelwerk lesen</h3>
+        <p class="np-body">
+          Lies das Regelwerk sorgfältig durch. Unwissenheit schützt nicht vor
+          Strafe — und faire Regeln schützen alle.
+        </p>
+        <a class="np-link" href="regelwerk.html">Zum Regelwerk</a>
+      </div>
+
+      <div class="np-card" data-reveal data-delay="200">
+        <div class="np-step">3</div>
+        <span class="np-icon">💬</span>
+        <h3 class="np-title">Discord beitreten</h3>
+        <p class="np-body">
+          Tritt unserem Discord bei. Dort findest du Ankündigungen, Support,
+          Events und eine aktive Community.
+        </p>
+        <a class="np-link" href="https://discord.gg/maloracity" target="_blank" rel="noopener">Discord öffnen</a>
+      </div>
+
+      <div class="np-card" data-reveal data-delay="300">
+        <div class="np-step">4</div>
+        <span class="np-icon">🔍</span>
+        <h3 class="np-title">Server finden</h3>
+        <p class="np-body">
+          Suche in FiveM nach „Malora City" oder klicke direkt auf den
+          Beitreten-Link, um sofort zu verbinden.
+        </p>
+        <a class="np-link" href="https://cfx.re/join/vg7mdk" target="_blank" rel="noopener">Direkt beitreten</a>
+      </div>
+
+      <div class="np-card" data-reveal data-delay="400">
+        <div class="np-step">5</div>
+        <span class="np-icon">🎭</span>
+        <h3 class="np-title">Charakter erstellen</h3>
+        <p class="np-body">
+          Überlege dir eine Hintergrundgeschichte für deinen Charakter.
+          Gutes Roleplay beginnt mit einer glaubwürdigen Identität.
+        </p>
+      </div>
+
+      <div class="np-card" data-reveal data-delay="500">
+        <div class="np-step">6</div>
+        <span class="np-icon">🤝</span>
+        <h3 class="np-title">Community kennenlernen</h3>
+        <p class="np-body">
+          Sprich andere Spieler an, schließe dich einer Fraktion an
+          und schreibe deine eigene Geschichte in Los Santos.
+        </p>
+        <a class="np-link" href="fraktionsregelwerk.html">Fraktionen ansehen</a>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- SHOP SECTION -->
+  <section class="shop-section">
+    <div class="shop-banner" data-reveal>
+      <div class="shop-banner-glow"></div>
+      <div class="shop-content">
+        <div class="shop-eyebrow">🛒 Offizieller Shop</div>
+        <h2 class="shop-title">Unterstütze<br><span>Malora City</span></h2>
+        <p class="shop-desc">
+          Hol dir exklusive VIP-Ränge, Starter-Pakete und besondere In-Game-Vorteile.
+          Alle Käufe laufen sicher über <strong>Tebex</strong> ab — deine Unterstützung hält den Server am Laufen.
+        </p>
+        <div class="shop-actions">
+          <a class="btn btn-solid btn-lg" href="shop.html">Zum Shop</a>
+          <a class="btn btn-ghost" href="agb.html">AGB lesen</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- WORLD / FEATURES SECTION -->
+  <section class="world">
+    <div class="world-header" data-reveal>
+      <div>
+        <p class="world-label">Was uns ausmacht</p>
+        <h2 class="world-title">Deine Stadt.<br><em>Deine Regeln.</em><br>Deine Geschichte.</h2>
+      </div>
+      <p class="world-intro">
+        Malora City ist mehr als ein Server — es ist eine lebendige Welt, in der
+        jede Entscheidung zählt. Von der ersten Szene bis zum letzten Atemzug deines
+        Charakters: hier schreibst du deine eigene Geschichte.
+      </p>
+    </div>
+
+    <div class="bento">
+
+      <div class="bento-card tall" data-reveal data-delay="0">
+        <span class="card-num">01</span>
+        <span class="card-icon">🎭</span>
+        <h3 class="card-title">Tiefes Roleplay</h3>
+        <p class="card-body">
+          Kein Grinden, kein Mindless-PvP. Bei uns steht der Charakter im Vordergrund —
+          mit echter Hintergrundgeschichte, Beziehungen und Konsequenzen, die dein RP
+          unvergesslich machen. Jede Szene hat Gewicht.
+        </p>
+        <div class="card-deco"></div>
+      </div>
+
+      <div class="bento-card" data-reveal data-delay="120">
+        <span class="card-num">02</span>
+        <span class="card-icon">🏙️</span>
+        <h3 class="card-title">Los Santos</h3>
+        <p class="card-body">Eine offene Metropole, die atmet. Jede Straße, jede Fraktion — Teil einer lebendigen Welt.</p>
+      </div>
+
+      <div class="bento-card" data-reveal data-delay="200">
+        <span class="card-num">03</span>
+        <span class="card-icon">⚔️</span>
+        <h3 class="card-title">Fraktionen</h3>
+        <p class="card-body">Mächtige Gangs, staatliche Behörden, illegale Kartelle. Entscheide, auf welcher Seite du stehst.</p>
+      </div>
+
+      <div class="bento-card wide" data-reveal data-delay="300">
+        <span class="card-num">04</span>
+        <span class="card-icon">👥</span>
+        <h3 class="card-title">3.000+ Community</h3>
+        <p class="card-body">
+          Eine der größten deutschsprachigen FiveM Communities. Erfahrene Spieler, ein aktives Team
+          und tägliche Events sorgen dafür, dass es in Malora City nie langweilig wird.
+          Komm auf unseren Discord und werde Teil der Familie.
+        </p>
+      </div>
+
+      <div class="bento-card" data-reveal data-delay="400">
+        <span class="card-num">05</span>
+        <span class="card-icon">🛡️</span>
+        <h3 class="card-title">Faire Regeln</h3>
+        <p class="card-body">Klares Regelwerk, konsequente Moderation. Hier kann jeder fair spielen.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="footer-logo" href="index.html">
+          <img src="img/logo.gif" alt="Malora City Logo">
+          <span>Malora City</span>
+        </a>
+        <p class="footer-tagline">Deutschsprachiger FiveM Roleplay Server — Los Santos lebt.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <a href="index.html">Startseite</a>
+        <a href="features.html">Team</a>
+        <a href="shop.html">Shop</a>
+        <a href="https://discord.gg/maloracity" target="_blank" rel="noopener">Discord</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Regelwerke</h4>
+        <a href="regelwerk.html">Allgemeines Regelwerk</a>
+        <a href="fraktionsregelwerk.html">Fraktionsregelwerk</a>
+        <a href="streamer-regelwerk.html">Streamer Regelwerk</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Server</h4>
+        <a href="https://cfx.re/join/vg7mdk" target="_blank" rel="noopener">Server beitreten</a>
+        <p>FiveM · Los Santos</p>
+        <p>3.000+ Spieler</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Malora City. Alle Rechte vorbehalten.</span>
+      <div class="footer-links">
+        <a href="impressum.html">Impressum</a>
+        <a href="agb.html">AGB</a>
+        <a href="https://discord.gg/maloracity" target="_blank" rel="noopener">Discord</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    var p = new URLSearchParams(window.location.search);
+    if (p.get('error')==='access_denied') {
+      alert('Zugriff verweigert: Du besitzt nicht die benötigte Rolle.');
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  </script>
+  <script src="js/shared.js"></script>
+</body>
+</html>

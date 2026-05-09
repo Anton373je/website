@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Streamer Regelwerk — Malora City</title>
+  <link rel="icon" type="image/gif" href="img/logo.gif">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="css/css2.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .rw-wrap{position:relative;z-index:1;padding:calc(var(--nav-h) + 6vh) 6% 10vh;}
+    .rw-hero{text-align:center;padding-bottom:6vh;border-bottom:1px solid var(--border);margin-bottom:36px;}
+    .rw-hero h1{font-family:"Bebas Neue",sans-serif;font-size:clamp(44px,7vw,100px);letter-spacing:4px;line-height:.9;color:#fff;margin-bottom:14px;}
+    .rw-hero h1 span{background:linear-gradient(135deg,var(--blue-bright),var(--blue));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+    .rw-hero p{color:var(--muted2);font-size:16px;line-height:1.7;max-width:560px;margin:0 auto 28px;}
+    .rw-meta{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border-blue);background:rgba(10,132,255,.07);padding:5px 16px;border-radius:999px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--blue-bright);}
+    .rw-quicknav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:24px 0 36px;border-bottom:1px solid var(--border);margin-bottom:40px;}
+    .rw-quicknav a{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted2);text-decoration:none;padding:6px 14px;border:1px solid var(--border);border-radius:6px;transition:color .2s,border-color .2s,background .2s;}
+    .rw-quicknav a:hover{color:var(--blue-bright);border-color:var(--border-blue);background:rgba(10,132,255,.07);}
+    .rw-sec{margin-bottom:10px;}
+    .rw-det{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:border-color .25s,box-shadow .25s;}
+    .rw-det[open]{border-color:var(--border-blue);box-shadow:0 8px 40px rgba(10,132,255,.08);}
+    .rw-sum{list-style:none;cursor:pointer;padding:20px 26px;display:flex;align-items:center;justify-content:space-between;gap:16px;-webkit-user-select:none;user-select:none;transition:background .2s;}
+    .rw-sum:hover{background:rgba(255,255,255,.025);}
+    .rw-sum::marker,.rw-sum::-webkit-details-marker{display:none;}
+    .rw-sum-l{display:flex;align-items:center;gap:14px;}
+    .rw-badge{min-width:48px;height:28px;display:flex;align-items:center;justify-content:center;font-family:"Bebas Neue",sans-serif;font-size:13px;letter-spacing:1.5px;color:var(--blue-bright);background:rgba(10,132,255,.1);border:1px solid var(--border-blue);border-radius:6px;padding:0 10px;white-space:nowrap;}
+    .rw-stitle{font-family:"Bebas Neue",sans-serif;font-size:20px;letter-spacing:2px;color:#fff;}
+    .rw-arr{width:9px;height:9px;border-right:2px solid rgba(255,255,255,.2);border-bottom:2px solid rgba(255,255,255,.2);transform:rotate(45deg);flex-shrink:0;transition:transform .22s,border-color .22s;}
+    .rw-det[open] .rw-arr{transform:rotate(-135deg);border-color:var(--blue);}
+    .rw-panel{padding:4px 26px 26px;}
+    .rw-rule{padding:13px 0;border-bottom:1px solid rgba(255,255,255,.042);display:flex;gap:14px;align-items:flex-start;}
+    .rw-rule:last-child{border-bottom:none;}
+    .rw-num{font-family:"Bebas Neue",sans-serif;font-size:12px;letter-spacing:1px;color:var(--blue);min-width:54px;padding-top:2px;flex-shrink:0;}
+    .rw-text{color:var(--muted2);font-size:14px;line-height:1.7;}
+    .rw-text strong{color:var(--text);}
+    .tag-no{display:inline-flex;align-items:center;background:rgba(255,60,60,.1);border:1px solid rgba(255,60,60,.2);color:#ff6b6b;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:2px 7px;border-radius:4px;margin-left:5px;vertical-align:middle;}
+    .tag-ok{display:inline-flex;align-items:center;background:rgba(10,210,100,.08);border:1px solid rgba(10,210,100,.2);color:#4cde8a;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:2px 7px;border-radius:4px;margin-left:5px;vertical-align:middle;}
+    .info-box{margin:14px 0;padding:14px 18px;background:rgba(10,132,255,.05);border:1px solid var(--border-blue);border-radius:10px;color:var(--muted2);font-size:14px;line-height:1.7;}
+    .rw-footer{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding:28px 0 0;border-top:1px solid var(--border);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue);margin-top:48px;}
+    .rw-footer a{color:var(--blue-bright);text-decoration:none;}
+    @media(max-width:700px){.rw-sum{padding:14px 16px;}.rw-panel{padding:4px 16px 20px;}}
+  </style>
+</head>
+<body class="rules-page">
+  <div class="grid-overlay"></div>
+  <div class="c-dot" id="cDot"></div>
+  <div class="c-ring" id="cRing"></div>
+  <div class="scroll-bar" id="sBar"></div>
+  <canvas id="particles"></canvas>
+
+  <header class="nav" id="mainNav">
+    <div class="nav-bg"></div>
+    <a class="brand" href="index.html">
+      <img class="brand-logo" src="img/logo.gif" alt="Malora City">
+      <span class="brand-text">Malora City</span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Startseite</a>
+      <a href="features.html">Team</a>
+      <a href="regelwerk.html">Regelwerk</a>
+      <a href="fraktionsregelwerk.html">Fraktionsregelwerk</a>
+      <a href="streamer-regelwerk.html" aria-current="page">Streamer</a>
+      <a href="shop.html">Shop</a>
+      <a href="agb.html">AGB</a>
+      <a href="impressum.html">Impressum</a>
+    </nav>
+    <a class="btn btn-outline" href="https://discord.gg/maloracity" target="_blank" rel="noopener">Discord</a>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Menü"><span></span><span></span><span></span></button>
+  </header>
+  <div class="nav-drawer" id="navDrawer">
+    <a href="index.html">Startseite</a>
+    <a href="features.html">Team</a>
+    <a href="regelwerk.html">Regelwerk</a>
+    <a href="fraktionsregelwerk.html">Fraktionsregelwerk</a>
+    <a href="streamer-regelwerk.html">Streamer Regelwerk</a>
+    <a href="shop.html">🛒 Shop</a>
+    <a href="agb.html">AGB</a>
+    <a href="impressum.html">Impressum</a>
+    <a href="https://discord.gg/maloracity" target="_blank" rel="noopener">Discord →</a>
+  </div>
+
+  <main class="rw-wrap">
+    <div class="rw-hero">
+      <h1>Malora City<br><span>Streamer Regelwerk</span></h1>
+      <p>Regeln für alle Content Creator und Streamer auf Malora City. Als öffentliches Gesicht des Servers trägst du besondere Verantwortung — diese Regeln gelten zusätzlich zum allgemeinen Regelwerk.</p>
+      <span class="rw-meta">Stand: 2026 · Malora City · Content Creator</span>
+    </div>
+
+    <nav class="rw-quicknav">
+      <a href="#s1">§1 Vorbildfunktion</a>
+      <a href="#s2">§2 Metagaming-Schutz</a>
+      <a href="#s3">§3 Stream-Inhalte</a>
+      <a href="#s4">§4 Werbung & Clickbait</a>
+      <a href="#s5">§5 Verhalten im RP</a>
+      <a href="#s6">§6 Support & Aufnahmen</a>
+      <a href="#s7">§7 Stream-Sniping</a>
+      <a href="#s8">§8 Sanktionen</a>
+    </nav>
+
+    <!-- §1 -->
+    <div class="rw-sec" id="s1">
+      <details class="rw-det" open>
+        <summary class="rw-sum">
+          <div class="rw-sum-l"><span class="rw-badge">§ 1</span><span class="rw-stitle">Vorbildfunktion</span></div>
+          <span class="rw-arr"></span>
+        </summary>
+        <div class="rw-panel">
+          <div class="info-box">Streamer und Content Creator repräsentieren Malora City nach außen. Dein Verhalten prägt das Bild des gesamten Servers in der Öffentlichkeit.</div>
+          <div class="rw-rule"><span class="rw-num">§ 1.1</span><span class="rw-text">Streamer verpflichten sich zu einem respektvollen Umgang mit Zuschauern, Mitspielern und dem Team — sowohl im Stream als auch außerhalb.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 1.2</span><span class="rw-text">Als öffentliche Person des Servers trägst du Mitverantwortung für das Image von Malora City. Negative Außendarstellung, die dem Server schadet, wird sanktioniert.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 1.3</span><span class="rw-text">Das vollständige <a href="regelwerk.html" style="color:var(--blue-bright);">Spieler-Regelwerk</a> gilt für Streamer in vollem Umfang. Streamer genießen <strong>keine Sonderrechte</strong> im Roleplay. <span class="tag-no">Keine Ausnahmen</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 1.4</span><span class="rw-text">Mit dem Betreten des Servers stimmt jeder Spieler zu, dass er in Livestreams oder Aufnahmen anderer Spieler zu sehen und zu hören sein kann. <span class="tag-ok">Einverständnis gilt</span></span></div>
+        </div>
+      </details>
+    </div>
+
+    <!-- §2 -->
+    <div class="rw-sec" id="s2">
+      <details class="rw-det">
+        <summary class="rw-sum">
+          <div class="rw-sum-l"><span class="rw-badge">§ 2</span><span class="rw-stitle">Metagaming-Schutz</span></div>
+          <span class="rw-arr"></span>
+        </summary>
+        <div class="rw-panel">
+          <div class="rw-rule"><span class="rw-num">§ 2.1</span><span class="rw-text">Streamer sind verpflichtet, ihren Stream so zu gestalten, dass <strong>Metagaming erschwert</strong> wird — z. B. durch eine Chatverzögerung (Stream-Delay) oder das Deaktivieren des Ingame-Chats in sensiblen Situationen.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 2.2</span><span class="rw-text">Das Nutzen von Insider-Informationen aus dem eigenen Stream-Chat (z. B. Positionen, Pläne von Gegenspielern) ist strengstens verboten und gilt als Meta-Gaming. <span class="tag-no">Streng verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 2.3</span><span class="rw-text">Streamer sollten in sensiblen RP-Situationen (z. B. Geiselnahmen, Überfälle, Fraktionskonflikte) besondere Vorsicht walten lassen, um keine Informationen preiszugeben, die dem Gegenüber einen unrealistischen Vorteil verschaffen.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 2.4</span><span class="rw-text">Ein empfohlener Stream-Delay liegt bei mindestens <strong>2–5 Minuten</strong> bei aktiven PvP- oder RP-Konfliktsituationen. Dies liegt im eigenen Ermessen des Streamers, wird aber dringend empfohlen.</span></div>
+        </div>
+      </details>
+    </div>
+
+    <!-- §3 -->
+    <div class="rw-sec" id="s3">
+      <details class="rw-det">
+        <summary class="rw-sum">
+          <div class="rw-sum-l"><span class="rw-badge">§ 3</span><span class="rw-stitle">Stream-Inhalte</span></div>
+          <span class="rw-arr"></span>
+        </summary>
+        <div class="rw-panel">
+          <div class="rw-rule"><span class="rw-num">§ 3.1</span><span class="rw-text">Emotionale Ausbrüche im Stream, die gegen den Server, das Team oder einzelne Spieler gerichtet sind, sind zu unterlassen. Kritik ist konstruktiv über den Support-Kanal zu äußern. <span class="tag-no">Verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 3.2</span><span class="rw-text">Inhalte, die das Regelwerk brechen, dürfen weder im Stream gezeigt noch aktiv durchgeführt werden. Regelbrüche auf Stream werden genauso geahndet wie offline.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 3.3</span><span class="rw-text">Rassistische, sexistische, extremistische oder anderweitig diskriminierende Inhalte sind im Stream auf Malora City absolut verboten und führen zu sofortigem Ausschluss. <span class="tag-no">Perm-Bann</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 3.4</span><span class="rw-text">Support-Gespräche dürfen grundsätzlich nicht gestreamt oder aufgezeichnet und veröffentlicht werden. <span class="tag-no">Verboten</span></span></div>
+        </div>
+      </details>
+    </div>
+
+    <!-- §4 -->
+    <div class="rw-sec" id="s4">
+      <details class="rw-det">
+        <summary class="rw-sum">
+          <div class="rw-sum-l"><span class="rw-badge">§ 4</span><span class="rw-stitle">Werbung & Clickbait</span></div>
+          <span class="rw-arr"></span>
+        </summary>
+        <div class="rw-panel">
+          <div class="rw-rule"><span class="rw-num">§ 4.1</span><span class="rw-text">Das Bewerben anderer GTA-RP-Projekte oder konkurrierender FiveM-Server während eines Streams auf Malora City ist untersagt. <span class="tag-no">Verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 4.2</span><span class="rw-text">Irreführende Stream-Titel, Thumbnails oder Beschreibungen, die dem Image des Servers schaden oder falsche Tatsachen über Malora City verbreiten, sind verboten. <span class="tag-no">Verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 4.3</span><span class="rw-text">Reißerische Titel wie „Server ruiniert", „Admins korrupt" o. Ä. ohne fundierten Hintergrund sind untersagt und werden als öffentliche Falschaussage gewertet.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 4.4</span><span class="rw-text">Das Bewerben des Malora City Servers, des Discords oder des Shops im Stream ist ausdrücklich erwünscht und erlaubt. <span class="tag-ok">Erlaubt</span></span></div>
+        </div>
+      </details>
+    </div>
+
+    <!-- §5 -->
+    <div class="rw-sec" id="s5">
+      <details class="rw-det">
+        <summary class="rw-sum">
+          <div class="rw-sum-l"><span class="rw-badge">§ 5</span><span class="rw-stitle">Verhalten im Roleplay</span></div>
+          <span class="rw-arr"></span>
+        </summary>
+        <div class="rw-panel">
+          <div class="rw-rule"><span class="rw-num">§ 5.1</span><span class="rw-text">Streamer genießen keinerlei Sonderrechte im Roleplay. Regelverstöße werden genau wie bei allen anderen Spielern geahndet — unabhängig von Bekanntheit oder Zuschauerzahl.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 5.2</span><span class="rw-text">Das absichtliche Inszenieren von regelwidrigen Szenen für Stream-Content (z. B. RDM, VDM, Power-RP) ist verboten und wird doppelt sanktioniert. <span class="tag-no">Verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 5.3</span><span class="rw-text">Streamer dürfen ihre Zuschauer nicht dazu animieren, RP-Situationen zu beeinflussen (z. B. durch Hinweise auf Spielerpositionen im Chat oder durch aktives Aufrufen zum Stream-Sniping).</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 5.4</span><span class="rw-text">Interaktionen mit anderen Spielern müssen dem Roleplay entsprechen. Auf Zuschauer-Anfragen aus dem Chat, die das RP beeinflussen, darf nicht eingegangen werden.</span></div>
+        </div>
+      </details>
+    </div>
+
+    <!-- §6 -->
+    <div class="rw-sec" id="s6">
+      <details class="rw-det">
+        <summary class="rw-sum">
+          <div class="rw-sum-l"><span class="rw-badge">§ 6</span><span class="rw-stitle">Support & Aufnahmen</span></div>
+          <span class="rw-arr"></span>
+        </summary>
+        <div class="rw-panel">
+          <div class="rw-rule"><span class="rw-num">§ 6.1</span><span class="rw-text">Support-Gespräche dürfen weder live gestreamt noch aufgezeichnet und veröffentlicht werden — auf keiner Plattform (Twitch, YouTube, TikTok etc.). <span class="tag-no">Streng verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 6.2</span><span class="rw-text">Aufnahmen von Support-Situationen dürfen ausschließlich als <strong>Beweismittel</strong> angefertigt und dem Team übergeben werden — nicht zur Veröffentlichung.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 6.3</span><span class="rw-text">Wer eine Support-Sitzung streamt oder veröffentlicht, muss mit einer Verwarnung bis hin zur dauerhaften Sperrung rechnen — unabhängig vom Inhalt des Gesprächs.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 6.4</span><span class="rw-text">Regelbrüche müssen innerhalb von <strong>24 Stunden</strong> nach dem Vorfall gemeldet werden. Als Streamer bist du in der Pflicht, Beweise sicherzustellen — VODs und Clips sollten entsprechend gesichert werden.</span></div>
+        </div>
+      </details>
+    </div>
+
+    <!-- §7 -->
+    <div class="rw-sec" id="s7">
+      <details class="rw-det">
+        <summary class="rw-sum">
+          <div class="rw-sum-l"><span class="rw-badge">§ 7</span><span class="rw-stitle">Stream-Sniping</span></div>
+          <span class="rw-arr"></span>
+        </summary>
+        <div class="rw-panel">
+          <div class="rw-rule"><span class="rw-num">§ 7.1</span><span class="rw-text">Das gezielte Aufsuchen oder Beeinflussen von Streamern durch <strong>Stream-Sniping</strong> ist strengstens untersagt und wird umgehend geahndet. <span class="tag-no">Streng verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 7.2</span><span class="rw-text">Als Stream-Sniping gilt jede Nutzung von Informationen aus dem Stream eines anderen Spielers, um dessen Position, Pläne oder Aktivitäten zu verfolgen oder zu sabotieren.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 7.3</span><span class="rw-text">Streamer, die Opfer eines Stream-Snipes werden, können dies mit Videobeweis innerhalb von <strong>24 Stunden</strong> melden. Der Videobeweis muss die Nutzung von Stream-Informationen durch den Täter klar belegen.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 7.4</span><span class="rw-text">Zur Prävention wird empfohlen: Stream-Delay aktivieren, Karte/Minimap im kritischen Moment verdecken und keine genauen Standorte öffentlich nennen.</span></div>
+        </div>
+      </details>
+    </div>
+
+    <!-- §8 -->
+    <div class="rw-sec" id="s8">
+      <details class="rw-det">
+        <summary class="rw-sum">
+          <div class="rw-sum-l"><span class="rw-badge">§ 8</span><span class="rw-stitle">Sanktionen</span></div>
+          <span class="rw-arr"></span>
+        </summary>
+        <div class="rw-panel">
+          <div class="rw-rule"><span class="rw-num">§ 8.1</span><span class="rw-text">Verstöße gegen das Streamer-Regelwerk werden genau wie Verstöße gegen das allgemeine Regelwerk behandelt — ggf. sogar strenger, da Streamer eine Vorbildfunktion haben.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 8.2</span><span class="rw-text">Mögliche Sanktionen reichen von einer <strong>Verwarnung</strong> über eine <strong>temporäre Sperre</strong> bis hin zu einem <strong>permanenten Bann</strong> — abhängig von Schwere und Häufigkeit des Verstoßes.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 8.3</span><span class="rw-text">Das Team behält sich vor, bei öffentlichkeitswirksamen Verstößen (z. B. öffentlichen Falschaussagen über den Server) auch ohne vorherige Verwarnung sofortige Maßnahmen einzuleiten.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 8.4</span><span class="rw-text">Alle Entscheidungen des Teams sind bindend. Der übliche Instanzenzug (Support → Projektleitung) gilt auch für Streamer.</span></div>
+        </div>
+      </details>
+    </div>
+
+    <div class="rw-footer">
+      <span>© 2026 Malora City — Streamer Regelwerk</span>
+      <div style="display:flex;gap:20px;">
+        <a href="regelwerk.html">Spielerregelwerk</a>
+        <a href="fraktionsregelwerk.html">Fraktionsregelwerk</a>
+        <a href="impressum.html">Impressum</a>
+      </div>
+    </div>
+  </main>
+  <script src="js/shared.js"></script>
+</body>
+</html>

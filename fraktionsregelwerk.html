@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fraktionsregelwerk — Malora City</title>
+  <link rel="icon" type="image/gif" href="img/logo.gif">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="css/css2.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .rw-wrap{position:relative;z-index:1;padding:calc(var(--nav-h) + 6vh) 6% 10vh;}
+    .rw-hero{text-align:center;padding-bottom:6vh;border-bottom:1px solid var(--border);margin-bottom:36px;}
+    .rw-hero h1{font-family:"Bebas Neue",sans-serif;font-size:clamp(44px,7vw,100px);letter-spacing:4px;line-height:.9;color:#fff;margin-bottom:14px;}
+    .rw-hero h1 span{background:linear-gradient(135deg,var(--blue-bright),var(--blue));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+    .rw-hero p{color:var(--muted2);font-size:16px;line-height:1.7;max-width:560px;margin:0 auto 28px;}
+    .rw-meta{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border-blue);background:rgba(10,132,255,.07);padding:5px 16px;border-radius:999px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--blue-bright);}
+    .rw-quicknav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:24px 0 36px;border-bottom:1px solid var(--border);margin-bottom:40px;}
+    .rw-quicknav a{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted2);text-decoration:none;padding:6px 14px;border:1px solid var(--border);border-radius:6px;transition:color .2s,border-color .2s,background .2s;}
+    .rw-quicknav a:hover{color:var(--blue-bright);border-color:var(--border-blue);background:rgba(10,132,255,.07);}
+    .rw-sec{margin-bottom:10px;}
+    .rw-det{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:border-color .25s,box-shadow .25s;}
+    .rw-det[open]{border-color:var(--border-blue);box-shadow:0 8px 40px rgba(10,132,255,.08);}
+    .rw-sum{list-style:none;cursor:pointer;padding:20px 26px;display:flex;align-items:center;justify-content:space-between;gap:16px;-webkit-user-select:none;user-select:none;transition:background .2s;}
+    .rw-sum:hover{background:rgba(255,255,255,.025);}
+    .rw-sum::marker,.rw-sum::-webkit-details-marker{display:none;}
+    .rw-sum-l{display:flex;align-items:center;gap:14px;}
+    .rw-badge{min-width:48px;height:28px;display:flex;align-items:center;justify-content:center;font-family:"Bebas Neue",sans-serif;font-size:13px;letter-spacing:1.5px;color:var(--blue-bright);background:rgba(10,132,255,.1);border:1px solid var(--border-blue);border-radius:6px;padding:0 10px;white-space:nowrap;}
+    .rw-stitle{font-family:"Bebas Neue",sans-serif;font-size:20px;letter-spacing:2px;color:#fff;}
+    .rw-arr{width:9px;height:9px;border-right:2px solid rgba(255,255,255,.2);border-bottom:2px solid rgba(255,255,255,.2);transform:rotate(45deg);flex-shrink:0;transition:transform .22s,border-color .22s;}
+    .rw-det[open] .rw-arr{transform:rotate(-135deg);border-color:var(--blue);}
+    .rw-panel{padding:4px 26px 26px;}
+    .rw-rule{padding:13px 0;border-bottom:1px solid rgba(255,255,255,.042);display:flex;gap:14px;align-items:flex-start;}
+    .rw-rule:last-child{border-bottom:none;}
+    .rw-num{font-family:"Bebas Neue",sans-serif;font-size:12px;letter-spacing:1px;color:var(--blue);min-width:54px;padding-top:2px;flex-shrink:0;}
+    .rw-text{color:var(--muted2);font-size:14px;line-height:1.7;}
+    .rw-text strong{color:var(--text);}
+    .tag-no{display:inline-flex;align-items:center;background:rgba(255,60,60,.1);border:1px solid rgba(255,60,60,.2);color:#ff6b6b;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:2px 7px;border-radius:4px;margin-left:5px;vertical-align:middle;}
+    .tag-ok{display:inline-flex;align-items:center;background:rgba(10,210,100,.08);border:1px solid rgba(10,210,100,.2);color:#4cde8a;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:2px 7px;border-radius:4px;margin-left:5px;vertical-align:middle;}
+    .gambo-box{margin:18px 0 6px;padding:20px 22px;background:rgba(255,60,60,.05);border:1px solid rgba(255,60,60,.18);border-radius:12px;}
+    .gambo-box h4{font-family:"Bebas Neue",sans-serif;font-size:18px;letter-spacing:2px;color:#ff6b6b;margin-bottom:12px;}
+    .gambo-box p{color:var(--muted2);font-size:14px;line-height:1.7;margin-bottom:10px;}
+    .gambo-box ul{color:var(--muted2);font-size:14px;line-height:1.7;padding-left:18px;}
+    .gambo-box ul li{margin-bottom:7px;}
+    .info-box{margin:14px 0;padding:14px 18px;background:rgba(10,132,255,.05);border:1px solid var(--border-blue);border-radius:10px;color:var(--muted2);font-size:14px;line-height:1.7;}
+    .warn-box{margin:14px 0;padding:14px 18px;background:rgba(255,200,0,.04);border:1px solid rgba(255,200,0,.14);border-radius:10px;color:var(--muted2);font-size:14px;line-height:1.7;}
+    .rw-footer{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding:28px 0 0;border-top:1px solid var(--border);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue);margin-top:48px;}
+    .rw-footer a{color:var(--blue-bright);text-decoration:none;}
+    @media(max-width:700px){.rw-sum{padding:14px 16px;}.rw-panel{padding:4px 16px 20px;}}
+  </style>
+</head>
+<body class="rules-page">
+  <div class="grid-overlay"></div>
+  <div class="c-dot" id="cDot"></div>
+  <div class="c-ring" id="cRing"></div>
+  <div class="scroll-bar" id="sBar"></div>
+  <canvas id="particles"></canvas>
+
+  <header class="nav" id="mainNav">
+    <div class="nav-bg"></div>
+    <a class="brand" href="index.html">
+      <img class="brand-logo" src="img/logo.gif" alt="Malora City">
+      <span class="brand-text">Malora City</span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Startseite</a><a href="features.html">Team</a>
+      <a href="regelwerk.html">Regelwerk</a>
+      <a href="fraktionsregelwerk.html" aria-current="page">Fraktionsregelwerk</a>
+      <a href="streamer-regelwerk.html">Streamer</a><a href="shop.html">Shop</a>
+      <a href="agb.html">AGB</a><a href="impressum.html">Impressum</a>
+    </nav>
+    <a class="btn btn-outline" href="https://discord.gg/maloracity" target="_blank" rel="noopener">Discord</a>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Menü"><span></span><span></span><span></span></button>
+  </header>
+  <div class="nav-drawer" id="navDrawer">
+    <a href="index.html">Startseite</a><a href="features.html">Team</a><a href="regelwerk.html">Regelwerk</a>
+    <a href="fraktionsregelwerk.html">Fraktionsregelwerk</a><a href="streamer-regelwerk.html">Streamer Regelwerk</a>
+    <a href="shop.html">🛒 Shop</a><a href="agb.html">AGB</a><a href="impressum.html">Impressum</a>
+    <a href="https://discord.gg/maloracity" target="_blank" rel="noopener">Discord →</a>
+  </div>
+
+  <main class="rw-wrap">
+    <div class="rw-hero">
+      <h1>Malora City<br><span>Fraktionsregelwerk</span></h1>
+      <p>Regeln für alle offiziellen Fraktionen — Bad-Fraktionen, Staatsfraktionen und Gruppierungen. Lesen und einhalten ist Pflicht.</p>
+      <span class="rw-meta">Stand: 2026 · Malora City · Fraktionen</span>
+    </div>
+
+    <nav class="rw-quicknav">
+      <a href="#f1">§1 Allgemeines</a>
+      <a href="#f2">§2 Weiterführendes</a>
+      <a href="#f3">§3 Kriegerische Handlungen</a>
+      <a href="#f4">§4 Gangwar</a>
+      <a href="#f5">§5 Bündnis</a>
+      <a href="#f6">§6 Razzia</a>
+      <a href="#f7">§7 Lager</a>
+      <a href="#f8">§8 Konflikte</a>
+      <a href="#f9">§9 Routen</a>
+      <a href="#gambo-frak">⚠️ Gambo</a>
+    </nav>
+
+    <!-- §1 -->
+    <div class="rw-sec" id="f1">
+      <details class="rw-det" open>
+        <summary class="rw-sum"><div class="rw-sum-l"><span class="rw-badge">§ 1</span><span class="rw-stitle">Allgemeines</span></div><span class="rw-arr"></span></summary>
+        <div class="rw-panel">
+          <div class="rw-rule"><span class="rw-num">§ 1.1</span><span class="rw-text">Das letzte Wort über alle Fälle behält sich die Fraktionsverwaltung, Support-, Server- und Projektleitung vor. Regelungen können jederzeit geändert werden — regelmäßig selbstständig informieren.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 1.2</span><span class="rw-text">Bei offiziellen Dokumenten (Fraktionskonzepten, Discord-Texte) dürfen Informationen nicht IC verwendet werden.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 1.3</span><span class="rw-text">Offizielle illegale Fraktionen dürfen nicht mehr als <strong>10 Mitglieder</strong> haben. Die Fraktionsverwaltung kann die Anzahl jederzeit anpassen.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 1.4</span><span class="rw-text">Wechsel von legal → illegal: <strong>2 Tage Fraktionssperre</strong>. Wechsel von illegal → legal: keine Sperre.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 1.5</span><span class="rw-text">Zivilisten dürfen maximal mit <strong>4 Personen</strong> agieren.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 1.6</span><span class="rw-text">Bei Angelegenheiten von Bad-Fraktionen haben Staatsfraktionen (LSPD, FIB, Sheriff etc.) vorerst rauszuhalten, bis die Situation beendet ist. Ausnahme: Gefährdung der Öffentlichkeit.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 1.7</span><span class="rw-text">Bad-Fraktionen dürfen sich nicht als Zivilisten ausgeben — Ausnahme: gegenüber Zivilisten. <span class="tag-no">Verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 1.9</span><span class="rw-text">Man darf nur mit einem Charakter in einer Bad-Fraktion sein. Zwei Chars in einer Bad-Fraktion = Regelbruch. <span class="tag-no">Verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 1.10</span><span class="rw-text">Neue Fraktionen haben mindestens <strong>2 Tage Aufbauzeit</strong> — dürfen in dieser Zeit nicht angegriffen oder gestürmt werden. Dürfen auch auf einer Route nach Wahl zum Aufbau gehen.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 1.11</span><span class="rw-text">Kleidung der anderen Partei darf nicht getragen werden. <span class="tag-no">Verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 1.12</span><span class="rw-text">Im Konzept beschriebene Kleidungen/Farben dürfen nur mit Absprache der Fraktionsverwaltung geändert werden.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 1.13</span><span class="rw-text">Aggressive Handlungen und Fraktionsangelegenheiten dürfen nur mit Fraktionsfahrzeugen ausgefochten werden. Ausnahme: Räube mit nicht-aggressivem Ende.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 1.14</span><span class="rw-text">Nach einer erfolgreichen Schießerei gilt für beide Parteien eine <strong>1-stündige Pause</strong> — keine weiteren Schießereien zwischen diesen Parteien in diesem Zeitraum (außer gegen Dritte).</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 1.15</span><span class="rw-text">Das Fahren in nicht erkennbaren Fahrzeugen ist verboten — die Fraktionsfarbe muss auf dem Fahrzeug erkennbar sein. <span class="tag-no">Verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 1.16</span><span class="rw-text"><strong>Heiliger Boden:</strong> Betreten eines Fraktionsanwesens oder einer Route gilt sofort als Schuss-Call ohne vorherige Ankündigung.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 1.17</span><span class="rw-text">Mitglieder einer Bad-Fraktion sind verpflichtet, jederzeit ihre offizielle Fraktionskleidung zu tragen. Ausnahmen: Masken und Handschuhe (individuell anpassbar).</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 1.18</span><span class="rw-text">Nach einem <strong>Blood Out</strong> verliert die Person sämtliche Informationen über die Fraktion und deren Mitglieder. Persönlicher Kontakt kann weiterhin bestehen bleiben.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 1.19</span><span class="rw-text">Blood Out ist nur gültig, wenn die Person zuvor ein Blood-In erhalten hat. Ein Blackout ist nur durch die Leaderschaft gültig und bindend.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 1.20</span><span class="rw-text">Ein Entkommen aus einem Bloodout mithilfe eines Sicarios ist strengstens untersagt. Ebenso ist <strong>Gambo-Verhalten</strong> zur Umgehung des Bloodouts nicht gestattet. <span class="tag-no">Verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 1.21</span><span class="rw-text">Die Nutzung eines Sicarios im Zusammenhang mit einem Bloodout ist grundsätzlich verboten. Ausnahme: vorherige Genehmigung durch die Fraktionsverwaltung per Ticket.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 1.22</span><span class="rw-text"><strong>Baseraids</strong> müssen mindestens <strong>1 Stunde</strong> vor Beginn per Ticket bei der Fraktionsverwaltung angemeldet und genehmigt werden.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 1.23</span><span class="rw-text">Eine Fraktion darf maximal <strong>einmal pro Tag</strong> Ziel eines Baseraids sein — unabhängig vom Ergebnis.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 1.24</span><span class="rw-text">Fraktionseigene Systeme sind verantwortungsvoll zu nutzen. Missbrauch wird administrativ geahndet.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 1.25</span><span class="rw-text">Für normale Kleidung: mindestens <strong>3 deutliche Merkmale</strong>. Für Custom-Kleidung: mindestens <strong>2 Merkmale</strong> (Fraktionsname oder Kleidungsart klar sichtbar).</span></div>
+        </div>
+      </details>
+    </div>
+
+    <!-- §2 -->
+    <div class="rw-sec" id="f2">
+      <details class="rw-det">
+        <summary class="rw-sum"><div class="rw-sum-l"><span class="rw-badge">§ 2</span><span class="rw-stitle">Weiterführendes</span></div><span class="rw-arr"></span></summary>
+        <div class="rw-panel">
+          <div class="rw-rule"><span class="rw-num">§ 2.1</span><span class="rw-text">Das Verhalten des Ingame-Charakters ist an die Fraktion anzupassen, solange es nicht mit dem Funktionskonzept in Konflikt gerät. Beispiel: Ein Mafiamitglied darf nicht wie ein Gangmitglied agieren.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 2.2</span><span class="rw-text">Die Fraktionsverwaltung behält sich vor, Personen die sich nicht an das Konzept halten, zu entfernen und die Fraktion zu verwarnen.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 2.3</span><span class="rw-text">Hält sich eine Fraktion nicht an das Konzept, kann dies zu einer sofortigen Auflösung führen. <span class="tag-no">Auflösung möglich</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 2.4</span><span class="rw-text">Dauerhafte Schießereien ohne triftigen RP-Grund können zur direkten Auflösung führen. <span class="tag-no">Auflösung möglich</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 2.5</span><span class="rw-text">Söldner bei einer anderen Fraktion oder Zivilisten als Aushilfe bei Streitigkeiten zu nutzen ist verboten. <span class="tag-no">Verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 2.6</span><span class="rw-text">Farming-Felder der illegalen Routen sind Ganggebiete — im Umkreis von <strong>50 Metern</strong> muss mit Beschuss gerechnet werden. Das Ausnutzen dieser Zone für Gambo-Verhalten ist verboten.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 2.7</span><span class="rw-text">Bad-Fraktionen haben <strong>50 %</strong> ihres Warenbestandes in der Waffenkammer zu lagern.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 2.8</span><span class="rw-text">Bei einer erfolgreichen Razzia des LSPD oder FIB sind <strong>25 %</strong> des Warenbestandes auszuhändigen.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 2.9</span><span class="rw-text">Bei Fraktionen in der Probezeit ersetzen mehrere Lagerfahrzeuge (verschiedene Halter) temporär das Fraktionslager. Fahrzeuge müssen am nächstgelegenen Parkplatz zum zukünftigen Standort geparkt werden.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 2.10</span><span class="rw-text">Korruptes Verhalten ist in Staatsfraktionen (DOJ, FIB, LSPD, Sheriff, USMS) grundsätzlich verboten. Ausnahme: genehmigtes Konzept per Ticket.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 2.11</span><span class="rw-text">Maximale Haftzeit durch einen Police Officer/Sheriff: <strong>60 Werteinheiten (Minuten)</strong>.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 2.12</span><span class="rw-text">Bei einem DOJ-Haftbefehl kann die Strafe auf <strong>120 Werteinheiten</strong> erhöht werden. Mechaniker dürfen im Dienst keine Waffen tragen. Medics dürfen nur einen Taser führen.</span></div>
+        </div>
+      </details>
+    </div>
+
+    <!-- §3 -->
+    <div class="rw-sec" id="f3">
+      <details class="rw-det">
+        <summary class="rw-sum"><div class="rw-sum-l"><span class="rw-badge">§ 3</span><span class="rw-stitle">Kriegerische Handlungen</span></div><span class="rw-arr"></span></summary>
+        <div class="rw-panel">
+          <div class="rw-rule"><span class="rw-num">§ 3.1</span><span class="rw-text">Nur Bad-Fraktionen dürfen Kriege führen.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 3.2</span><span class="rw-text">Ein Krieg darf nur durch den <strong>Leader</strong> einer Bad-Fraktion erklärt werden.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 3.3</span><span class="rw-text">Jeder Kriegszustand muss auf einer durch die Fraktionsverwaltung genehmigten Kriegserklärung beruhen.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 3.4</span><span class="rw-text">Ab der Genehmigung bis zum offiziellen Kriegsbeginn dürfen beide Parteien nicht aggressiv agieren. Bis Kriegsbeginn muss IC eine mündliche Kriegserklärung von Leader zu Leader erfolgen.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 3.5</span><span class="rw-text">Eine Kriegserklärung muss einen triftigen RP-Grund, eine Forderung und ggf. eine Gegenforderung enthalten.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 3.6</span><span class="rw-text">Eine Kriegserklärung ist das letzte Mittel. Die Fraktionsverwaltung kann Kriegserklärungen ablehnen und Fraktionen sanktionieren, die willkürlich Krieg erklären.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 3.7</span><span class="rw-text">Forderungen müssen sich auf materielle Güter, Routen oder Gebiete beschränken und sich in einem angemessenen Rahmen bewegen.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 3.8</span><span class="rw-text">Eine Kriegserklärung bedarf nicht der Zustimmung der Gegenpartei.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 3.9</span><span class="rw-text">Während der Kriegszeit dürfen keine neuen Mitglieder aufgenommen werden. Ausnahme: Personen mit nachweislichem RP-Strang.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 3.10</span><span class="rw-text">Der Krieg darf nicht in Safezones, in der Nähe von Zivilisten-Ansammlungen oder im Umkreis von <strong>400 Metern</strong> rund um LAPD, Army-Gelände, LASD, FIB oder Gerichtsgebäude stattfinden.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 3.11</span><span class="rw-text">Staatsfraktionen dürfen nur von <strong>offiziellen Fraktionen</strong> — nicht von Gruppierungen — gestürmt werden.</span></div>
+        </div>
+      </details>
+    </div>
+
+    <!-- §4 -->
+    <div class="rw-sec" id="f4">
+      <details class="rw-det">
+        <summary class="rw-sum"><div class="rw-sum-l"><span class="rw-badge">§ 4</span><span class="rw-stitle">Gangwar</span></div><span class="rw-arr"></span></summary>
+        <div class="rw-panel">
+          <div class="info-box" style="margin-bottom:16px;">Der Gangwar ist ein <strong style="color:var(--blue-bright);">OOC-Event</strong> (Out of Character) und darf nicht für persönliche Rache oder PR-Zwecke genutzt werden.</div>
+          <div class="rw-rule"><span class="rw-num">§ 4.1</span><span class="rw-text">Der Gangwar ist OOC — keine persönliche Rache oder PR-Nutzung.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 4.2</span><span class="rw-text">Beleidigungen oder Herabwürdigung anderer Personen — verbal, schriftlich oder im Voice-Chat — sind nicht gestattet. <span class="tag-no">Verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 4.3</span><span class="rw-text">RDM und FearRP finden im Gangwar keine Anwendung.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 4.4</span><span class="rw-text">Geschossen wird ausschließlich innerhalb der markierten <strong>roten Zone</strong>. Schusswechsel außerhalb sind untersagt. <span class="tag-no">Verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 4.5</span><span class="rw-text"><strong>Spawntrapping</strong> — gezieltes Ausschalten von Spielern direkt nach dem Wiedereinstieg — ist verboten. <span class="tag-no">Verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 4.6</span><span class="rw-text">Drive-Bys aus fahrenden Fahrzeugen sind im Gangwar erlaubt. <span class="tag-ok">Erlaubt</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 4.7</span><span class="rw-text"><strong>Abcampen</strong> der roten Zone — längeres Warten an Zugängen oder Wiedereinstiegspunkten — ist nicht gestattet. <span class="tag-no">Verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 4.8</span><span class="rw-text">Nach Verlassen des Gangwars dürfen eigene Waffen auf direktem Weg in nahestehende Fahrzeuge oder Lager auf dem eigenen Fraktionsgelände eingelagert werden — ohne Konsequenzen.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 4.9</span><span class="rw-text">Meta-Gaming bleibt auch im Gangwar untersagt. <span class="tag-no">Verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 4.10</span><span class="rw-text">Nutzung von Emotes (zum Verstecken, Täuschen oder Ausnutzen von Animationen) im Gangwar ist verboten. <span class="tag-no">Verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 4.11</span><span class="rw-text">Wer den Gangwar betritt, muss dauerhaft in der Zone bleiben. Wer einmal in der Zone war, muss bis zum Tod darin bleiben. Rein-/Rausgehen wird sanktioniert. <span class="tag-no">Verboten</span></span></div>
+        </div>
+      </details>
+    </div>
+
+    <!-- §5 -->
+    <div class="rw-sec" id="f5">
+      <details class="rw-det">
+        <summary class="rw-sum"><div class="rw-sum-l"><span class="rw-badge">§ 5</span><span class="rw-stitle">Bündnis</span></div><span class="rw-arr"></span></summary>
+        <div class="rw-panel">
+          <div class="rw-rule"><span class="rw-num">§ 5.1</span><span class="rw-text">Bündnisse dürfen aus maximal <strong>zwei Fraktionen</strong> bestehen.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 5.2</span><span class="rw-text">Mitglieder eines Bündnisses dürfen maximal <strong>30 Personen</strong> umfassen.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 5.3</span><span class="rw-text">Das Limit wird gegen Staatsfraktionen oder andere Fraktionen mit Bündnis auf <strong>50 Mitglieder</strong> erhöht.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 5.4</span><span class="rw-text">Ein Bündnis ist erst gültig, wenn es bei der Fraktionsverwaltung angefragt und im Discord angekündigt wurde.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 5.5</span><span class="rw-text">Bündnisse sind zeitlich limitiert — Maximum: <strong>1 Woche</strong>.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 5.6</span><span class="rw-text">Nach Ablauf eines Bündnisses gilt eine allgemeine <strong>2-wöchige Bündnissperre</strong>.</span></div>
+        </div>
+      </details>
+    </div>
+
+    <!-- §6 -->
+    <div class="rw-sec" id="f6">
+      <details class="rw-det">
+        <summary class="rw-sum"><div class="rw-sum-l"><span class="rw-badge">§ 6</span><span class="rw-stitle">Razzia</span></div><span class="rw-arr"></span></summary>
+        <div class="rw-panel">
+          <div class="info-box" style="margin-bottom:16px;">Als Razzia wird eine staatliche Übernahme auf ein Fraktionsgelände oder einen (illegalen) Routenpunkt bezeichnet.</div>
+          <div class="rw-rule"><span class="rw-num">§ 6.1</span><span class="rw-text">Staatsfraktionen dürfen alle <strong>drei Stunden</strong> eine Razzia auf einer Route durchführen.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 6.2</span><span class="rw-text">Jede Razzia muss protokolliert werden.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 6.3</span><span class="rw-text">Flieht eine Person auf ihr Fraktionsanwesen, ist keine Anfrage bei der Fraktionsverwaltung nötig.</span></div>
+        </div>
+      </details>
+    </div>
+
+    <!-- §7 -->
+    <div class="rw-sec" id="f7">
+      <details class="rw-det">
+        <summary class="rw-sum"><div class="rw-sum-l"><span class="rw-badge">§ 7</span><span class="rw-stitle">Lager</span></div><span class="rw-arr"></span></summary>
+        <div class="rw-panel">
+          <div class="rw-rule"><span class="rw-num">§ 7.1</span><span class="rw-text">Der gesamte Fraktionsbestand ist ausschließlich im <strong>Fraktionslager</strong> aufzubewahren und darf nicht privat gelagert werden. Das Lager dient der sicheren, zentralen Verwahrung aller Ressourcen, Fahrzeuge und Ausrüstungen.</span></div>
+        </div>
+      </details>
+    </div>
+
+    <!-- §8 -->
+    <div class="rw-sec" id="f8">
+      <details class="rw-det">
+        <summary class="rw-sum"><div class="rw-sum-l"><span class="rw-badge">§ 8</span><span class="rw-stitle">Konflikte</span></div><span class="rw-arr"></span></summary>
+        <div class="rw-panel">
+          <div class="rw-rule"><span class="rw-num">§ 8.1</span><span class="rw-text">Vor dem Ausbruch eines Konflikts zwischen zwei Fraktionen muss ein klärendes Gespräch zwischen den jeweiligen Leaderschaften stattfinden. Beide Parteien sind verpflichtet, eine friedliche Lösung anzustreben. Scheitert dies, darf eine offizielle Forderung oder ein Kriegsvertrag gestellt werden.</span></div>
+        </div>
+      </details>
+    </div>
+
+    <!-- §9 -->
+    <div class="rw-sec" id="f9">
+      <details class="rw-det">
+        <summary class="rw-sum"><div class="rw-sum-l"><span class="rw-badge">§ 9</span><span class="rw-stitle">Routen</span></div><span class="rw-arr"></span></summary>
+        <div class="rw-panel">
+          <div class="rw-rule"><span class="rw-num">§ 9.1</span><span class="rw-text">Hat eine Fraktion im RP eine Route übernommen, kann diese offiziell bei der Fraktionsverwaltung registriert werden. Die Übernahme muss im RP eindeutig und nachvollziehbar ausgespielt worden sein.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.1.2</span><span class="rw-text">Befindet sich eine Fraktion ohne gültigen Anspruch auf einer registrierten Route, kann sie durch RP-Mittel entfernt werden. Alternativ kann ein gültiger Kriegsvertrag als Grundlage dienen.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.2</span><span class="rw-text">Staatsfraktionen dürfen eine Route nur mit ausdrücklicher DOJ-Genehmigung stürmen — außer bei aktiver Verfolgungsjagd auf eine illegale Route.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.3</span><span class="rw-text">Jede Route darf <strong>einmal pro Tag</strong> gestürmt werden. Mit Antrag bei der Fraktionsverwaltung können in Ausnahmefällen bis zu <strong>3 Stürmungen pro Tag</strong> genehmigt werden.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.4</span><span class="rw-text">Nur der Routenbesitzer sowie Personen, die sich zum Zeitpunkt der Stürmung auf der Route befinden, dürfen sich wehren. Eingekaufte Familienmitglieder oder externe Unterstützung sind nicht erlaubt.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.5</span><span class="rw-text">Ein Routen-Kampf darf ausschließlich auf der jeweiligen Route und deren unmittelbarer Umgebung stattfinden.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.6</span><span class="rw-text">Routen-Kämpfe setzen einen klaren RP-Hintergrund voraus und sind nur zulässig, wenn die Route aktiv und durchgehend besetzt ist.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.7</span><span class="rw-text">Angriffe auf Fraktionen außerhalb der Route sind grundsätzlich untersagt. Ausnahme: Entführung von Personen direkt von der Route mit nachvollziehbarem RP-Hintergrund.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.8</span><span class="rw-text">Legale Routen gelten von Anfang bis Ende als Safezone. Gezieltes Beobachten oder Abwarten, bis Spieler ihre Waren verkauft haben, um sie danach zu überfallen (Abfarm-Verhalten), ist verboten. <span class="tag-no">Verboten</span></span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.9–9.11</span><span class="rw-text">Als legale Routen gelten alle auf der Karte markierten Routen sowie alle Tätigkeiten des legalen Wirtschaftssystems (Angeln, Holzfällen, Müllsammeln, Farmen, legaler Handel). Diese sind vollständig geschützt — gezieltes Abfarm-Verhalten danach wird geahndet.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.12</span><span class="rw-text">Eine Fraktion darf <strong>zwei Routen</strong> gleichzeitig besitzen und besetzen.</span></div>
+          <div class="rw-rule"><span class="rw-num">§ 9.13</span><span class="rw-text">Es ist nicht gestattet, mehrere Routen gleichzeitig zu beanspruchen — weder im Besitz noch durch gleichzeitige Präsenz. Verstoß wird geahndet.</span></div>
+        </div>
+      </details>
+    </div>
+
+    <!-- GAMBO FRAKTIONEN -->
+    <div class="rw-sec" id="gambo-frak">
+      <details class="rw-det">
+        <summary class="rw-sum"><div class="rw-sum-l"><span class="rw-badge" style="color:#ff6b6b;background:rgba(255,60,60,.1);border-color:rgba(255,60,60,.25);">⚠️</span><span class="rw-stitle">Gambo-Verhalten in Fraktionen</span></div><span class="rw-arr"></span></summary>
+        <div class="rw-panel">
+          <div class="gambo-box">
+            <h4>⚠️ Gambo-Verhalten — Strikt Verboten</h4>
+            <p>Als <strong style="color:#ff6b6b;">„Gambo-Verhalten"</strong> im Fraktionskontext bezeichnet man jedes unrealistische, regelwidrige oder konzeptwidrige Handeln, das darauf abzielt, Regeln zu umgehen, andere Fraktionen zu schädigen oder das Roleplay zu sabotieren.</p>
+            <ul>
+              <li>Bloodout mithilfe eines Sicarios oder externer Hilfe umgehen (§1.20)</li>
+              <li>Regelwidriges Verhalten auf illegalen Farming-Routen zur Vorteilsverschaffung (§2.6)</li>
+              <li>Als angeschossenes, sterbendes Fraktionsmitglied weiterkämpfen als wäre nichts</li>
+              <li>Fear-RP als Fraktionsmitglied ignorieren — trotz Übermacht und Bedrohung aggressiv agieren</li>
+              <li>Gangwar-Zone verlassen und wieder betreten, um einem Tod zu entgehen (§4.11)</li>
+              <li>Spawntrapping oder Abcampen der Gangwar-Zone (§4.5/§4.7)</li>
+              <li>Fraktionskonzept aktiv unterwandern oder sich gezielt konzeptwidrig verhalten (§2.1)</li>
+              <li>Bündnis- oder Kriegerklärungsregeln missbrauchen, um schnell viele Gegner zu bekämpfen</li>
+              <li>Routen besetzen oder angreifen, ohne die entsprechenden Regeln und RP-Hintergründe einzuhalten</li>
+              <li>Baseraids ohne Genehmigung durchführen oder mehrfach pro Tag angreifen (§1.22/§1.23)</li>
+            </ul>
+            <p style="color:var(--muted2);font-size:13px;margin-top:12px;font-style:italic;">Konsequenzen: Von Verwarnungen über Fraktionssperren bis zur Auflösung der Fraktion — je nach Schwere und Häufigkeit des Verstoßes.</p>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <div class="rw-footer">
+      <span>© 2026 Malora City — Fraktionsregelwerk</span>
+      <div style="display:flex;gap:20px;">
+        <a href="regelwerk.html">Spielerregelwerk</a>
+        <a href="agb.html">AGB</a>
+        <a href="impressum.html">Impressum</a>
+      </div>
+    </div>
+  </main>
+  <script src="js/shared.js"></script>
+</body>
+</html>
